@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import pymysql
+# 避免出现错误：
+# django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
+pymysql.version_info = (1, 4, 6, 'final', 0)
+# 启用pymysql的驱动模式， 否则不能用于django
+pymysql.install_as_MySQLdb()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'school.apps.SchoolConfig',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +63,18 @@ ROOT_URLCONF = 'ThreeCoolCat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 定义模版文件所在的路径
+        'DIRS': ['templates'],
+        # 是否读取应用下的模版
+        # Django 加载模版的规则是： 最短路径原则， 也就是说
+        # 如果出现多个同名的模版文件，
+        # 1.在 django包的templstes目录下有 index.html
+        # 2.在 当前项目的templates目录下有 index.html
+        # 3.在 当前应用的templates目录下有 index.html
+        # 当我们定义的视图 指向了index.html,会先找3 ，如果没找到会找2 ，还没找到会找1， 如果1也没有， 会抛出未找到文件的异常
+        # 因此， 我们通过这个规则，可以对django自身的模版进行重新定义
+        # 同理，我们要用到的静态资源文件（js文件，css文件，图片文件）也是相同的寻找原则
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,14 +93,27 @@ WSGI_APPLICATION = 'ThreeCoolCat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 引擎名称
+        'ENGINE': 'django.db.backends.mysql',
+        # 数据库名称
+        'NAME': 'threecoolcat',
+        # 用户名
+        'USER': 'root',
+        # 密码
+        'PASSWORD': 'www.isoftstone.CoM',
+        # 服务器地址
+        'HOST': '127.0.0.1',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -117,5 +149,9 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev')
 STATIC_URL = '/static/'
