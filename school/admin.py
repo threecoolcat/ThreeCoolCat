@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import School, Course, Teacher, TeacherWithCourse
+from .models import School, Course, Teacher
 # Register your models here.
 
 
@@ -56,7 +56,7 @@ class TeacherAdmin(admin.ModelAdmin):
         ('基本信息', {'fields': ('name', 'title', 'duty',)}),
         ('照片', {'fields': ('photo', 'photo_show')}),
         ('简介', {'fields': ('intro',)}),
-        ('课程', {'fields': ('courses1',)}),
+        ('课程', {'fields': ('courses',)}),
         ('管理信息', {'fields': ('enabled', 'order_by')}),
 
     ]

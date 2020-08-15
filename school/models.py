@@ -59,15 +59,15 @@ class Course(models.Model):
         return self.name
 
 
-class TeacherWithCourse(models.Model):
-    id = models.AutoField(primary_key=True)
-    course = models.ForeignKey('school.Course', on_delete=models.CASCADE, verbose_name='课程', null=True, blank=True,
-                               related_name='teacher_courses', db_column='course_id')
-    teacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE, verbose_name='教师', null=True, blank=True,
-                                related_name='course_teachers', db_column='teacher_id')
-
-    class Meta:
-        db_table = 'teacher_course'
+# class TeacherWithCourse(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     course = models.ForeignKey('school.Course', on_delete=models.CASCADE, verbose_name='课程', null=True, blank=True,
+#                                related_name='teacher_courses', db_column='course_id')
+#     teacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE, verbose_name='教师', null=True, blank=True,
+#                                 related_name='course_teachers', db_column='teacher_id')
+#
+#     class Meta:
+#         db_table = 'teacher_course'
 
 
 class Teacher(models.Model):
@@ -80,9 +80,8 @@ class Teacher(models.Model):
     intro = models.TextField('简介', db_column='intro', null=True, blank=True)
     enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
-    courses = models.ManyToManyField('Course', verbose_name='课程', related_name='CoursesOfTeacher',
-                                     through='TeacherWithCourse', through_fields=('teacher', 'course'))
-    courses1 = models.ManyToManyField('Course', verbose_name='课程', )
+    courses = models.ManyToManyField('Course', verbose_name='课程', )
+
     class Meta:
         managed = True
         db_table = 'teacher'

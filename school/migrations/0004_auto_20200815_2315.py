@@ -21,17 +21,17 @@ class Migration(migrations.Migration):
             name='school',
             field=models.ForeignKey(blank=True, db_column='school_id', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='course_schools', to='school.School', verbose_name='校区'),
         ),
-        migrations.CreateModel(
-            name='TeacherWithCourse',
-            fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('course', models.ForeignKey(blank=True, db_column='course_id', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='teacher_courses', to='school.Course', verbose_name='课程')),
-                ('teacher', models.ForeignKey(blank=True, db_column='teacher_id', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='course_teachers', to='school.Teacher', verbose_name='教师')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='teacher',
-            name='courses',
-            field=models.ManyToManyField(through='school.TeacherWithCourse', to='school.Course', verbose_name='课程'),
-        ),
+        # migrations.CreateModel(
+        #     name='TeacherWithCourse',
+        #     fields=[
+        #         ('id', models.AutoField(primary_key=True, serialize=False)),
+        #         ('course', models.ForeignKey(blank=True, db_column='course_id', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='teacher_courses', to='school.Course', verbose_name='课程')),
+        #         ('teacher', models.ForeignKey(blank=True, db_column='teacher_id', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='course_teachers', to='school.Teacher', verbose_name='教师')),
+        #     ],
+        # ),
+        # migrations.AddField(
+        #     model_name='teacher',
+        #     name='courses',
+        #     field=models.ManyToManyField(through='school.TeacherWithCourse', to='school.Course', verbose_name='课程'),
+        # ),
     ]

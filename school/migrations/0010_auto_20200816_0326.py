@@ -10,13 +10,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='teacher',
-            name='courses',
-            field=models.ManyToManyField(related_name='CoursesOfTeacher', through='school.TeacherWithCourse', to='school.Course', verbose_name='课程'),
-        ),
-        migrations.AlterModelTable(
-            name='teacherwithcourse',
-            table='teacher_course',
-        ),
+        # migrations.AlterField(
+        #     model_name='teacher',
+        #     name='courses',
+        #     field=models.ManyToManyField(related_name='CoursesOfTeacher', through='school.TeacherWithCourse', to='school.Course', verbose_name='课程'),
+        # ),
+        # migrations.AlterModelTable(
+        #     name='teacherwithcourse',
+        #     table='teacher_course',
+        # ),
     ]
