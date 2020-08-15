@@ -19,7 +19,7 @@ class HotNewsAdmin(admin.ModelAdmin):
     readonly_fields = ('cover_show',)
 
     def cover_show(self, obj):
-        return mark_safe(u'<img src="%s" width="100px" />' % obj.cover.url if obj.cover else '')
+        return mark_safe('<img src="%s" width="100px" />' % obj.cover.url if obj.cover else '')
 
     cover_show.short_description = '封面'
 
