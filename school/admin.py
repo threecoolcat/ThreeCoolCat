@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import School, Course
+from .models import School, Course, Teacher
 # Register your models here.
 
 
@@ -11,6 +11,12 @@ class SchoolAdmin(admin.ModelAdmin):
 
 
 @admin.register(Course)
-class SchoolAdmin(admin.ModelAdmin):
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'intro', 'enabled')
+    pass
+
+
+@admin.register(Teacher)
+class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'intro', 'enabled')
     pass
