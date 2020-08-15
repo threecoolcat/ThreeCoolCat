@@ -28,7 +28,7 @@ class HotNews(Article):
     author = models.CharField('作者', db_column='author', null=True, blank=True, default='', max_length=255)
     link_url = models.CharField('原文链接', db_column='url', null=False, blank=False, default='', max_length=255)
     subtitle = models.CharField('副标题', db_column='subtitle', null=False, blank=False, default='', max_length=255)
-    cover = models.ImageField('封面', db_column='cover', null=True, blank=True)
+    cover = models.ImageField('封面', db_column='cover', upload_to='hotnews', null=True, blank=True)
     content = models.TextField('内容', db_column='content')
 
     class Meta:
@@ -37,12 +37,15 @@ class HotNews(Article):
         verbose_name = '热点新闻'
         verbose_name_plural = '热点新闻管理'
 
+    def __str__(self):
+        return self.title
+
 
 class TechnicalArticle(Article):
     author = models.CharField('作者', db_column='author', null=True, blank=True, default='', max_length=255)
     link_url = models.CharField('原文链接', db_column='url', null=False, blank=False, default='', max_length=255)
     subtitle = models.CharField('副标题', db_column='subtitle', null=False, blank=False, default='', max_length=255)
-    cover = models.ImageField('封面', db_column='cover', null=True, blank=True)
+    cover = models.ImageField('封面', db_column='cover', upload_to='techarticle', null=True, blank=True)
     content = models.TextField('内容', db_column='content')
 
     class Meta:
@@ -50,6 +53,9 @@ class TechnicalArticle(Article):
         db_table = 'technical_article'
         verbose_name = '技术文章'
         verbose_name_plural = '技术文章管理'
+
+    def __str__(self):
+        return self.title
 
 
 class FriendLinks(Article):
@@ -61,3 +67,6 @@ class FriendLinks(Article):
         db_table = 'friend_links'
         verbose_name = '友情链接'
         verbose_name_plural = '友情链接'
+
+    def __str__(self):
+        return self.title

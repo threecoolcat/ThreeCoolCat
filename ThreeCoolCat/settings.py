@@ -154,5 +154,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+# 静态资源的路径配置
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev')
 STATIC_URL = '/static/'
+
+# 文件上传的路径配置
+MEDIA_URL = '/files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/')

@@ -7,10 +7,13 @@ class Item(models.Model):
     """物品基础类"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('名称', db_column='name', null=False, blank=False, default='', max_length=255)
+    cover = models.ImageField('封面', db_column='cover', upload_to='items', null=True, blank=True)
     unit_price = models.DecimalField('单价', db_column='unit_price', null=True, blank=False,
                                      decimal_places=2, max_digits=8)
     discount_price = models.DecimalField('折扣价', db_column='discount_price', null=True, blank=False,
                                          decimal_places=2, max_digits=8)
+    enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
+    order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
 
     class Meta:
         # 抽象类， 不生成实体表
