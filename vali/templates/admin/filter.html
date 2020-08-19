@@ -1,0 +1,8 @@
+{% load i18n %}
+<label class="list-group-item" style="padding: 10px 10px">{% blocktrans with filter_title=title %} {{ filter_title }}: {% endblocktrans %}
+   <select class="form-control form-control-sm" onchange="filter_changed(this)">
+    {% for choice in choices %}
+        <option {% if choice.selected %}selected="selected"{% endif %} value="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
+    {% endfor %}
+    </select>
+</label>

@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{%block appheader%}{% endblock %}
+{% block aside %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block bodyclass %}{{ block.super }}{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+
+<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+<p id="cnt">5秒后自动回到首页</p>
+
+<p><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></p>
+
+{% endblock %}
+{% block footscript %}
+<script>
+    setTimeout(function(){
+        document.location.href = "{% url 'admin:index' %}";
+    }, 5000);
+    var cnt = 5;
+    setInterval(function(){
+        cnt = cnt - 1;
+        $("#cnt").text(String(cnt)+"秒后自动回到首页");
+    },1000);
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}
+<div class="app-title" style="margin: 0px 0px;position:relative;z-index:1020;padding:10px">
+    {% if title %}
+        <div>
+            {% if cl %}
+            <h1><i class="fa fa-th-list"></i>
+                {{ cl.opts.verbose_name_plural|capfirst }}
+            </h1>
+            {% else %}
+                <a class="btn btn-outline-primary" href="javascript:history.back()">
+                    <i class="fa fa-chevron-left"></i>
+                返回【{{ opts.verbose_name_plural|capfirst }}】列表
+                </a>
+            {% endif %}
+
+            {# <p>{{ title }}</p> #}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block content %}
+<div id="content-main">
+<div class="module">
+
+{% if action_list %}
+    <table id="change-history">
+        <thead>
+        <tr>
+            <th scope="col">{% trans 'Date/time' %}</th>
+            <th scope="col">{% trans 'User' %}</th>
+            <th scope="col">{% trans 'Action' %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for action in action_list %}
+        <tr>
+            <th scope="row">{{ action.action_time|date:"DATETIME_FORMAT" }}</th>
+            <td>{{ action.user.get_username }}{% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}</td>
+            <td>{{ action.get_change_message }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}

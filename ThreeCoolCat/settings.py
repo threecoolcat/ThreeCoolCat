@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'vali',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,7 +60,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+VALI_CONFIG = {
+    'theme': 'blue',
+    'dashboard': {'name': 'dashboard', 'url': '/admin/'},
+    'applist': {"order": "registry", "group": True},
+}
 ROOT_URLCONF = 'ThreeCoolCat.urls'
 
 TEMPLATES = [

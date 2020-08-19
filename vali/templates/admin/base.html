@@ -1,0 +1,107 @@
+{% load i18n static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+    {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}" />{% endif %}
+    {% block responsive %}
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}" />
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive_rtl.css' %}" />{% endif %}
+    {% endblock %}
+
+    <!--<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}" />-->
+    <link rel="stylesheet" type="text/css" href="{% static '/vali/themes/brown/main.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vali/vali.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/font-awesome/4.7.0/css/font-awesome.min.css' %}" />
+    <style>
+    body {background-color: #E5E5E5;}
+    #content {padding:20px 20px;}
+    input, textarea, select, .form-row p, form .button {vertical-align: middle;}
+    select { height: 30px;border-radius: 4px; padding: 5px 6px;}
+    thead th { padding: 5px 10px; line-height: normal;text-transform: uppercase;background: #f6f6f6;}
+    thead th, tfoot td { color: #666; font-size: 11px;  border: none;  border-top: 1px solid #eee;  border-bottom: 1px solid #eee;}
+    th { font-weight: 600;}
+    table thead th .text a { display: block;  cursor: pointer;   padding: 8px 10px;}
+    td, th { font-size: 13px; padding: 8px;  font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;}
+    input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], textarea, select, .vTextField {
+    border: 1px solid #ccc;    border-radius: 4px;    padding: 5px 6px;    margin-top: 0;}
+    .module h2, .module caption, .inline-group h2 {    margin: 0;    padding: 8px;    font-weight: 400;    font-size: 13px;    text-align: left;    background: #79aec8;    color: #fff;}
+
+    </style>
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}
+    <!--<script src="{% static 'vali/js/jquery-3.2.1.min.js' %}"></script>-->
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="{% static 'vali/js/plugins/pace.min.js' %}"></script>
+
+    {% endblock %}
+</head>
+{% load i18n %}
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now 'Z' %}" {% block bodyevent %}{% endblock %}>
+{% if not is_popup %}
+    <!-- Header -->
+    {% block appheader %}{% endblock %}
+    <!-- END Header -->
+{% endif %}
+{% block pretitle %}{% endblock %}
+{% block content_title %}
+<div class="app-title" style="margin: 0px 0px;position:relative;z-index:1020;padding:10px">
+    {% if title %}
+        <div>
+            {% if cl %}
+            <h1><i class="fa fa-th-list"></i>
+                {{ cl.opts.verbose_name_plural|capfirst }}
+            </h1>
+            {% else %}
+                <a class="btn btn-outline-primary" href="javascript:backtolistview()">
+                    <i class="fa fa-chevron-left"></i>
+                返回
+                </a>
+            <!--【{{ opts.verbose_name_plural|capfirst }}】列表-->
+            {% endif %}
+
+            {# <p>{{ title }}</p> #}
+        </div>
+    {% endif %}
+    {% block breadcrumbs %}{% endblock %}
+</div>
+{% endblock %}
+{% block messages %}
+    {% if messages %}
+    <ul class="alert alert-dismissible alert-info" style="list-style:none">
+        <button class="close" type="button" data-dismiss="alert">×</button>
+        {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+    {% endfor %}</ul>
+    {% endif %}
+{% endblock messages %}
+<!-- Container -->
+<div id="container">
+    {% block aside %}{% endblock %}
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}app-content colM{% endblock %}">
+        {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        {% block content_clear %}
+        <!--<br class="clear" />-->
+        {% endblock %}
+    </div>
+    <!-- END Content -->
+    {% block footer %}<div id="footer"></div>{% endblock %}
+</div>
+<!-- END Container -->
+<!-- Javascripts-->
+<script src="{% static 'vali/js/jquery-3.2.1.min.js' %}"></script>
+<!-- Essential javascripts for application to work-->
+<script src="{% static 'vali/js/popper.min.js' %}"></script>
+<script src="{% static 'vali/js/bootstrap.min.js' %}"></script>
+{% block footscript %} {% endblock %}
+
+<!-- Page specific javascripts-->
+</body>
+</html>

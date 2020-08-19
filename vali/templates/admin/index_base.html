@@ -1,0 +1,162 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block title %}{{ title }}{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/dashboard.css' %}" />
+<style>
+#content {padding:0px;}
+</style>
+{% endblock %}
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'vali/js/bootstrap-closable-tab.js' %}?v=1"></script>
+{% endblock %}
+{% block bodyevent%}onscroll="bodyscroll()" {% endblock %}
+{% block coltype %}{{ block.super }}{% endblock %}
+<!-- Header -->
+    {% block appheader %}
+
+    <div class="app-header">
+        {% block branding %}
+        <a id="branding" class="app-header__logo" href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a>
+        {% endblock %}
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"></a>
+        <ul class="app-nav">
+            <!--{% block appsearch %}-->
+            <!--<li class="app-search">-->
+              <!--<input class="app-search__input" type="search" placeholder="{% trans 'Search' %}">-->
+              <!--<button class="app-search__button"><i class="fa fa-search"></i></button>-->
+            <!--</li>-->
+            <!--{% endblock %}-->
+        <!--Notification Menu-->
+        <li class="dropdown" style="display:none"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o fa-lg"></i></a>
+          <ul class="app-notification dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-222px, 50px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <li class="app-notification__title">You have 4 new notifications.</li>
+            <div class="app-notification__content">
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Lisa sent you a mail</p>
+                    <p class="app-notification__meta">2 min ago</p>
+                  </div></a></li>
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Mail server not working</p>
+                    <p class="app-notification__meta">5 min ago</p>
+                  </div></a></li>
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Transaction complete</p>
+                    <p class="app-notification__meta">2 days ago</p>
+                  </div></a></li>
+              <div class="app-notification__content">
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Lisa sent you a mail</p>
+                      <p class="app-notification__meta">2 min ago</p>
+                    </div></a></li>
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Mail server not working</p>
+                      <p class="app-notification__meta">5 min ago</p>
+                    </div></a></li>
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Transaction complete</p>
+                      <p class="app-notification__meta">2 days ago</p>
+                    </div></a></li>
+              </div>
+            </div>
+            <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
+          </ul>
+        </li>
+        <!-- User Menu-->
+         {% block usertools %}
+            {% if has_permission %}
+                {% block userlinks %}
+                <li id="user-tools" class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+                    <ul class="dropdown-menu settings-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-117px, 50px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        {% if site_url %}
+                        <li><a class="dropdown-item" href="{{ site_url }}"><i class="fa fa-cog fa-lg"></i> {% trans 'View site' %} </a></li>
+                        {% endif %}
+                        {% if user.has_usable_password %}
+                        <li><a class="dropdown-item" href="javascript:addTab('password_change','修改密码','{% url 'admin:password_change' %}', true);"><i class="fa fa-user fa-lg"></i> {% trans 'Change password' %} </a></li>
+                        {% endif %}
+                        {% if user.is_active and user.is_staff %}{% url 'django-admindocs-docroot' as docsroot %}
+                            {% if docsroot %}
+                            <li><a class="dropdown-item" href="{{ docsroot }}"><i class="fa fa-user fa-lg"></i>{% trans 'Documentation' %}</a></li>
+                            {% endif %}
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{% url 'admin:logout' %}"><i class="fa fa-sign-out fa-lg"></i>{% trans 'Log out' %}</a></li>
+                    </ul>
+                </li>
+                {% endblock %}
+            {% endif %}
+         {% endblock %}
+      </ul>
+        {% block nav-global %}{% endblock %}
+    </div>
+    {% endblock %}
+<!-- END Header -->
+{% block aside %}
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user"><i class="app-sidebar__user-avatar fa fa-user fa-lg"></i>
+            <div>
+                <p class="app-sidebar__user-name">{% firstof user.get_short_name user.get_username %}</p>
+                <p class="app-sidebar__user-designation"></p>
+            </div>
+        </div>
+        <ul class="app-menu">
+        <li><a class="app-menu__item" href="javascript:addTab('dashboard', '{% trans 'Home' %}', '/vali/dashboard/', false);"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">{% trans 'Home' %}</span></a></li>
+        {% if app_list %}
+        {% for app in app_list %}
+        <div class="app-{{ app.app_label }} module">
+            <li class="treeview">
+                <a href="javascript:;" class="app-menu__item" data-toggle="treeview" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
+                    <i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">{{ app.name }}</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <ul class="treeview-menu">
+                    {% for model in app.models %}
+                        <li class="model-{{ model.object_name|lower }}">
+                        {% if model.admin_url %}
+                            <!--<a class="treeview-item" href="{{ model.admin_url }}"><i class="icon fa fa-circle-o"></i>{{ model.name }}</a>-->
+                            <a class="treeview-item" href="javascript:addTab('{{ model.object_name|lower }}', '{{ model.name }}','{{ model.admin_url }}', true);"><i class="icon fa fa-circle-o"></i>&nbsp;{{ model.name }}</a>
+                        {% else %}
+                            {{ model.name }}
+                        {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>{% trans "You don't have permission to edit anything." %}</p>
+        {% endif %}
+        </ul>
+    </aside>
+{% endblock %}
+{% block bodyclass %}{{ block.super }}app sidebar-mini pace-done dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+<div id="content-main" >
+<div id="pages" class="card text-white bg-light" role="tabpanel" style="border:0px">
+    <ul class="nav nav-tabs" style="position:fixed;background-color:#f8f9fa !important">
+    </ul>
+    <div class="tab-content" style="margin-top:40px">
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block footscript %}
+<script src="{% static 'vali/js/index.js' %}?v=1"></script>
+<script>
+    addTab('dashboard', '{% trans "Home" %}', '/vali/dashboard/', false, true);
+</script>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+    <script>
+    function body_onload(){
+        var obj = parent.document.getElementById("tab_frame_{{ opts.model_name }}");
+        if (obj != null){
+            var wh = parent.window.innerHeight || parent.document.body.clientHeight;
+            obj.height = Math.max(this.document.body.clientHeight+50, wh-40);
+            $(".app-title").css("top",parent.document.body.scrollTop+"px");
+            $(".formtoolbox").css("top",parent.document.body.scrollTop+"px");
+        }
+    }
+    function bodyscroll(){
+        if (window.parent == window){
+            var tp = document.body.scrollTop;
+            var apptitle = document.getElementsByClassName("app-title");
+            var wintool = document.getElementsByClassName("formtoolbox");
+            $(apptitle).css("top", tp+"px");
+            $(wintool).css("top", tp+"px");
+        }
+    }
+
+    function backtolistview(){
+        var loc = document.location.href;
+        loc = loc.replace(/(.+?\/)\d+\/change\/.*?(\?.+)?/, '$1$2');
+        loc = loc.replace(/(.+?\/)add\/.*?(\?.+)?/, '$1$2');
+        loc = loc.replace(/_changelist_filters=/, '');
+        loc = loc.replace(/%3D/g, '=');
+        loc = loc.replace(/%26/g, '&');
+        document.location.href = loc;
+    }
+    Pace.on('done',function(){
+        body_onload();
+    });
+    var $ = $ || django.jQuery;
+    </script>
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+<style>
+    .related-widget-wrapper>a {display:none }
+</style>
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block bodyevent %} onload="body_onload()" onscroll="bodyscroll()" {% endblock %}
+{% block appheader %} {% endblock %}
+{% block aside %}{% endblock %}
+{% if not is_popup %}
+    {% block breadcrumbs %}{% endblock %}
+{% endif %}
+{% block content %}
+<div id="content-main">
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" novalidate>
+            {% csrf_token %}{% block form_top %}{% endblock %}
+    <div class="row">
+        <div class="col-md-9">
+            {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1" />{% endif %}
+            {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
+
+            {% if errors %}
+                <div class="alert alert-dismissible alert-danger">
+                     <button class="close" type="button" data-dismiss="alert">×</button>
+                    {% if errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}
+                    {% endif %}
+                </div>
+                {{ adminform.form.non_field_errors }}
+            {% endif %}
+            {% block field_sets %}
+                {% for fieldset in adminform %}
+                    {% include "admin/includes/fieldset.html" %}
+                {% endfor %}
+            {% endblock %}
+
+            {% block after_field_sets %}{% endblock %}
+
+            {% block inline_field_sets %}
+                {% for inline_admin_formset in inline_admin_formsets %}
+                    {% include inline_admin_formset.opts.template %}
+                {% endfor %}
+            {% endblock %}
+
+            {% block after_related_objects %}{% endblock %}
+
+            </div>
+            <div class="col-md-3">
+                {% block object-tools %}
+                    {% if change and show_history %}
+                        {% if not is_popup %}
+                            <div class="tile formtoolbox">
+                                <div class="btn-group-vertical col-md-12">
+                                {% block object-tools-items %}
+                                    {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+                                    <a href="{% add_preserved_filters history_url %}" class="historylink btn btn-primary btn-sm">{% trans "History" %}</a>
+                                    {% if has_absolute_url %}<li><a href="{{ absolute_url }}" class="viewsitelink btn btn-primary btn-sm">{% trans "View on site" %}</a></li>{% endif %}
+                                {% endblock %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+
+                <div class="tile formtoolbox">
+                    {% block changeform_toolbox %}
+                        {% submit_row %}
+                        {# {% if save_on_top %} #}
+                        {#     {% block submit_buttons_top %}{% submit_row %}{% endblock %} #}
+                        {# {% else %} #}
+                        {#     {% block submit_buttons_bottom %}{% submit_row %}{% endblock %} #}
+                        {# {% endif %} #}
+                    {% endblock %}
+                </div>
+                <div class="tile formtoolbox">
+                    <h4 class="tile-title folder-head">导航</h4>
+                    <div class="tile-body">
+                        <ul class="nav nav-pills flex-column">
+                            {% for fieldset in adminform %}
+                                <li class="nav-item"><a class="nav-link" href="javascript:parent.window.scrollTo(0,document.getElementsByTagName('fieldset')[{{ forloop.counter0 }}].offsetTop)"><i class="fa fa-bookmark fa-fw"></i> {% if forloop.first %}页首{% else %}{{ fieldset.name|default:'段' }}{% endif %}</a></li>
+                            {% endfor %}
+                            {% for inline_admin_formset in inline_admin_formsets %}
+                                <li class="nav-item"><a class="nav-link" href="javascript:parent.window.scrollTo(0,document.getElementsByClassName('js-inline-admin-formset')[0].getElementsByTagName('fieldset')[{{ forloop.counter0 }}].parentElement.offsetTop)"><i class="fa fa-bookmark fa-fw"></i> {{ inline_admin_formset.opts.verbose_name_plural|default:'段' }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    {% block admin_change_form_document_ready %}
+            <script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}"
+                {% if adminform and add %}
+                    data-model-name="{{ opts.model_name }}"
+                {% endif %}>
+            </script>
+        {% endblock %}
+
+        {# JavaScript for prepopulated fields #}
+        {% prepopulated_fields_js %}
+</div>
+{% endblock %}

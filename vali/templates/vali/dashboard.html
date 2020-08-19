@@ -1,0 +1,52 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+{% block content_title %}{% endblock %}
+{% block title %}Dashboard{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block content %}
+<div class="row">
+    {% for icon in icons %}
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small {{ icon.style }} coloured-icon"><i class="icon fa {{ icon.icon|default:'fa-users' }} fa-3x"></i>
+            <div class="info">
+              <h4>{{ icon.title }}</h4>
+              <p><b>{{ icon.value }}</b></p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+
+      </div>
+<div class="row">
+    {% for chart in charts %}
+    <div class="col-md-6">
+      <div class="tile">
+        <h3 class="tile-title">{{ chart.title }}</h3>
+        <div class="embed-responsive embed-responsive-16by9">
+          <canvas class="embed-responsive-item" id="{{ chart.name }}" width="504" height="284" style="width: 504px; height: 284px;"></canvas>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+      </div>
+{% endblock %}
+{% block footscript %}
+<script type="text/javascript" src="{% static 'vali/js/plugins/chart.js' %}"></script>
+    <script type="text/javascript">
+    {% for chart in charts %}
+        {% if chart.type == "Line" %}
+            var data = {
+            labels: {{ chart.labels|safe }},
+            datasets: {{ chart.datasets|safe }}
+             };
+         var ctxl = $("#{{ chart.name }}").get(0).getContext("2d");
+         var lineChart = new Chart(ctxl).Line(data);
+
+        {% elif chart.type == "Pie" %}
+            var pdata = {{ chart.datasets|safe }}
+             var ctxp = $("#{{ chart.name }}").get(0).getContext("2d");
+             var pieChart = new Chart(ctxp).Pie(pdata);
+        {% endif %}
+    {% endfor %}
+    </script>
+{% endblock %}
