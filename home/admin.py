@@ -2,12 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import *
 
-# 在第一个引用的APP中修改站点标题
-# 修改站点的页面标题
-admin.site.site_title = '三酷猫在线'
-# 修改站点的名称
-admin.site.site_header = '三酷猫在线'
-# Register your models here.
+
 
 
 # 同一个Admin类可以同时管理多个Model

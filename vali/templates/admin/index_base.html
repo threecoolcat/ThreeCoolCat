@@ -100,12 +100,12 @@
 <!-- END Header -->
 {% block aside %}
     <aside class="app-sidebar">
-        <div class="app-sidebar__user"><i class="app-sidebar__user-avatar fa fa-user fa-lg"></i>
-            <div>
-                <p class="app-sidebar__user-name">{% firstof user.get_short_name user.get_username %}</p>
-                <p class="app-sidebar__user-designation"></p>
-            </div>
-        </div>
+<!--        <div class="app-sidebar__user"><i class="app-sidebar__user-avatar fa fa-user fa-lg"></i>-->
+<!--            <div>-->
+<!--                <p class="app-sidebar__user-name">{% firstof user.get_short_name user.get_username %}</p>-->
+<!--                <p class="app-sidebar__user-designation"></p>-->
+<!--            </div>-->
+<!--        </div>-->
         <ul class="app-menu">
         <li><a class="app-menu__item" href="javascript:addTab('dashboard', '{% trans 'Home' %}', '/vali/dashboard/', false);"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">{% trans 'Home' %}</span></a></li>
         {% if app_list %}

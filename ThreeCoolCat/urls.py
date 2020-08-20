@@ -18,8 +18,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from home.views import page_not_found
+from vali.views import ValiDashboardView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("home.urls")),
-    path('vali/dashboard/', page_not_found),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('vali/dashboard/', ValiDashboardView.as_view()),
+]
+
+# 项目开发阶段可以用static管理上传文件或静态文件，以减少文件管理的工作量
+# 项目在生产环境部署时， 上传文件或静态文件应该采用更可靠的方式管理， 比如采用nginx的静态资源管理
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

@@ -13452,8 +13452,8 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-content {
-  min-height: calc(100vh - 50px);
-  margin-top: 50px;
+  height: calc(100vh - 50px);
+  margin-top: 47px;
   padding: 30px;
   background-color: #E5E5E5;
   -webkit-transition: margin-left 0.3s ease;
@@ -13469,7 +13469,7 @@ be a descendant of the grid when it is being dragged.
 
 @media (max-width: 767px) {
   .app-content {
-    margin-top: 50px;
+    margin-top: 47px;
     min-width: 100%;
   }
 }

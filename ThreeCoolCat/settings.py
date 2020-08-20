@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'school.apps.SchoolConfig',
     'shop.apps.ShopConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -61,9 +62,34 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar.apps.DebugToolbarConfig', ]
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
+
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+    INTERNAL_IPS = ('127.0.0.1',)
+    DEBUG_TOOLBAR_CONFIG = {
+        # Toolbar options
+        'JQUERY_URL': '/static/admin/js/vendor/jquery/jquery.min.js',
+    }
+# DEBUG_TOOLBAR_PANELS = [
+#     'debug_toolbar.panels.versions.VersionsPanel',
+#     'debug_toolbar.panels.timer.TimerPanel',
+#     'debug_toolbar.panels.settings.SettingsPanel',
+#     'debug_toolbar.panels.headers.HeadersPanel',
+#     'debug_toolbar.panels.request.RequestPanel',
+#     'debug_toolbar.panels.sql.SQLPanel',
+#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+#     'debug_toolbar.panels.templates.TemplatesPanel',
+#     'debug_toolbar.panels.cache.CachePanel',
+#     'debug_toolbar.panels.signals.SignalsPanel',
+#     'debug_toolbar.panels.logging.LoggingPanel',
+#     'debug_toolbar.panels.redirects.RedirectsPanel',
+# ]
 VALI_CONFIG = {
-    'theme': 'blue',
-    'dashboard': {'name': 'dashboard', 'url': '/admin/'},
+    # 'theme': 'blue',
+    # 'dashboard': {'name': 'dashboard', 'url': '/vali/dashboard/'},
     'applist': {"order": "registry", "group": True},
 }
 ROOT_URLCONF = 'ThreeCoolCat.urls'
@@ -171,3 +197,10 @@ STATIC_URL = '/static/'
 # 文件上传的路径配置
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/')
+
+from django.contrib.admin.sites import AdminSite
+# 修改站点的页面标题
+AdminSite.site_title = '三酷猫在线'
+# 修改站点的名称
+AdminSite.site_header = '三酷猫在线'
+# Register your models here.

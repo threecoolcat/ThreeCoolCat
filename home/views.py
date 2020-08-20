@@ -2,7 +2,6 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
 from django.views.generic import TemplateView
@@ -28,6 +27,7 @@ class TechArticleView(APIView):
         serializer = TechnicalArticleSerializer(items, many=True)
         return Response(serializer.data)
 
+
 # 自定义网站主页
 class IndexView(TemplateView):
     template_name = 'home/index.html'
@@ -37,6 +37,10 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = '三酷猫'
         return context
+
+
+class DashboardView(TechArticleView):
+    template_name = 'home/dashboard.html'
 
 
 # 自定义404页面
