@@ -23,6 +23,9 @@ class Item(models.Model):
 class Book(Item):
     author = models.CharField('作者', db_column='author', max_length=100, null=True, blank=True)
     sale_url = models.CharField('购买链接', db_column='sale_url', max_length=100, null=True, blank=True)
+    sub_title = models.CharField('副标题', db_column='sub_title', max_length=100, null=True, blank=True)
+    menus_text = models.TextField('图书目录', db_column='menus_text', null=True, blank=True)
+    description = models.TextField('图书详情', db_column='description', null=True, blank=True)
 
     class Meta:
         managed = True

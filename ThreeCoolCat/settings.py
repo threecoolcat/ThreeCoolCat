@@ -49,18 +49,25 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'school.apps.SchoolConfig',
     'shop.apps.ShopConfig',
-
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# 前端端分离时，要允许跨越请求
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8010',  # 本机调试地址
+)
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 if DEBUG:
@@ -194,13 +201,17 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev')
 STATIC_URL = '/static/'
 
+# 网站前端资源目录
+PORTAL_ROOT = os.path.join(BASE_DIR, 'portal')
+PORTAL_URL = '/portal/'
+
 # 文件上传的路径配置
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/')
 
 from django.contrib.admin.sites import AdminSite
 # 修改站点的页面标题
-AdminSite.site_title = '三酷猫在线'
+AdminSite.site_title = '三酷猫课堂'
 # 修改站点的名称
-AdminSite.site_header = '三酷猫在线'
+AdminSite.site_header = '三酷猫课堂'
 # Register your models here.

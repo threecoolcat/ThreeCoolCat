@@ -3,8 +3,6 @@ from django.utils.safestring import mark_safe
 from .models import *
 
 
-
-
 # 同一个Admin类可以同时管理多个Model
 # 项目前期，实体数据相似的实体类可以使用这种方式减少代码量
 # 当Admin实体数据不满足要求时， 再单独定义Admin类

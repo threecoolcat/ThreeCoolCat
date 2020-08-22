@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 
 from django.views.generic import TemplateView
-from .serializer import HotNewsSerializer, TechnicalArticleSerializer
-from .models import HotNews, TechnicalArticle
+from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer
+from .models import HotNews, TechnicalArticle, FriendLinks
 # Create your views here.
 
 
@@ -28,15 +28,14 @@ class TechArticleView(APIView):
         return Response(serializer.data)
 
 
-# 自定义网站主页
-class IndexView(TemplateView):
-    template_name = 'home/index.html'
+class FriendLinksView(APIView):
+    def get(self, request, *args, **kwargs):
+        friends = FriendLinks.objects.filter(enabled=True).order_by('-order_by')[:4]
+        pg = PageNumberPagination()
+        items = pg.paginate_queryset(friends, request, self)
+        serializer = FriendLinksSerializer(items, many=True)
+        return Response(serializer.data)
 
-    # 页面加载时，给页面传值
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = '三酷猫'
-        return context
 
 
 class DashboardView(TechArticleView):

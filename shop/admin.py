@@ -20,9 +20,10 @@ class BaseItemAdmin(admin.ModelAdmin):
 class BookAdmin(BaseItemAdmin):
     list_display = ('name', 'author', 'cover_show', 'sale_url', 'enabled', 'order_by')
     fieldsets = [
-        ('基本信息', {'fields': ('name', 'author')}),
+        ('基本信息', {'fields': ('name', 'author', 'sub_title')}),
         ('封面', {'fields': ('cover', 'cover_show',)}),
         ('属性', {'fields': ('sale_url', 'unit_price', 'discount_price',)}),
+        ('详情', {'fields': ('menus_text', 'description',)}),
         ('管理信息', {'fields': ('enabled', 'order_by')})
     ]
 
