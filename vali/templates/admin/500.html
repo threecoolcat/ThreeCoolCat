@@ -1,13 +1,18 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
-{%block appheader%}{% endblock %}
-{% block aside %}{% endblock %}
-{% block breadcrumbs %}{% endblock %}
 
+{% block breadcrumbs %}
+<ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+    <li class="breadcrumb-item"> {% trans 'Server error' %}</li>
+</ul>
+{% endblock %}
+{% block appmenu %}{% endblock %}
 {% block title %}{% trans 'Server error (500)' %}{% endblock %}
 
 {% block content %}
+<div class="tile">
 <h1>{% trans 'Server Error <em>(500)</em>' %}</h1>
-<p>{% trans "There's been an error. It's been reported to the site administrators via email and should be fixed shortly. Thanks for your patience." %}</p>
-
+<p class="text-danger small">{% trans "There's been an error. It's been reported to the site administrators via email and should be fixed shortly. Thanks for your patience." %}</p>
+</div>
 {% endblock %}

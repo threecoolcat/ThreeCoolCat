@@ -1,7 +1,7 @@
 {% load i18n %}
-<h2>{% trans "Summary" %}</h2>
-<ul>
+<h5>{% trans "Summary" %}</h5>
+<ul class="list-group list-group-flush">
     {% for model_name, object_count in model_count %}
-    <li>{{ model_name|capfirst }}: {{ object_count }}</li>
+    <li class="list-group-item">{{ model_name|capfirst }}: {{ object_count }}</li>
     {% endfor %}
 </ul>

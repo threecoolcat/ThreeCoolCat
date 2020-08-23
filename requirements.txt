@@ -1,7 +1,9 @@
-asgiref==3.2.9
-Django==3.0.7
-pytz==2019.3
-sqlparse==0.3.0
-pymysql==0.9.3
+asgiref==3.2.10
+Django==3.1
+pytz==2020.1
+sqlparse==0.3.1
+pymysql==0.10.0
 djangorestframework~=3.11.1
 django-debug-toolbar~=2.2
+django-cors-headers~=3.4.0
+django-tinymce~=3.0.2

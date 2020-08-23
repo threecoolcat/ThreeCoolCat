@@ -22,7 +22,8 @@ from vali.views import ValiDashboardView
 
 urlpatterns = [
     path('', RedirectView.as_view(url="/portal/index.html")),
-    path('vali/dashboard/', ValiDashboardView.as_view()),
+    path('dashboard/', ValiDashboardView.as_view()),
+    path(r'tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('shop/', include('shop.urls')),

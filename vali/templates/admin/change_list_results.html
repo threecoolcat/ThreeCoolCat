@@ -5,11 +5,10 @@
 </div>
 {% endif %}
 {% if results %}
-<div class="row">
-<div class="results col-sm-12">
-<table id="result_list" role="grid" class="table table-hover dataTable no-footer" aria-describedby="results">
+<div class="row" style="overflow-x:auto">
+<table id="result_list" class="table table-hover table-bordered table-striped">
 <thead>
-<tr role="row">
+<tr>
 {% for header in result_headers %}
 <th scope="col" {{ header.class_attrib }}>
    {% if header.sortable %}
@@ -29,12 +28,11 @@
 <tbody>
 {% for result in results %}
 {% if result.form.non_field_errors %}
-    <tr role="row" class="card"><td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td></tr>
+    <tr><td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td></tr>
 {% endif %}
-<tr role="row" class="{% cycle 'row1' 'row2' %}">{% for item in result %}{{ item }}{% endfor %}</tr>
+<tr class="{% cycle 'row1' 'row2' %}">{% for item in result %}{{ item }}{% endfor %}</tr>
 {% endfor %}
 </tbody>
 </table>
-</div>
 </div>
 {% endif %}

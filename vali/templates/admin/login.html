@@ -1,108 +1,117 @@
-{% extends "admin/base_site.html" %}
-{% load i18n static %}
-
-{% block extrastyle %}{{ block.super }}
-<!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}" />-->
-<style>
-  #content {
-padding:0px;
-}
-</style>
-{{ form.media }}
+{% load i18n static %}<!DOCTYPE html>
+{% load vali_tags %}
+{% vali_config as VALI_CONFIG %}
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{{ title }}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{# <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}" /> #}
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}" />{% endif %}
+{% block extrahead %}{% endblock %}
+{% block responsive %}
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}" />
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive_rtl.css' %}" />{% endif %}
 {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static '' %}vali/themes/{% VALI_THEME %}/main.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vali/assets/vali.css' %}" />
+    {% if VALI_CONFIG.font_awesome_url %}
+    <link rel="stylesheet" type="text/css" href="{% static VALI_CONFIG.font_awesome_url %}" />
+    {% else %}
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endif %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+<body>
+  <section class="material-half-bg">
+      <div class="cover"></div>
+  </section>
+  <section class="login-content">
+      <div class="logo">
+        <h1>{{ site_title|default:_('Django site admin') }}</h1>
+      </div>
+      <div class="login-box">
+        {% if form.errors and not form.non_field_errors %}
+          <p class="text-danger small">
+          {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+          </p>
+          {% endif %}
 
-{% block bodyclass %}{{ block.super }}{% endblock %}
-
-{%block appheader%}{% endblock %}
-{% block aside %}{% endblock %}
-{% block usertools %}{% endblock %}
-{% block coltype %}colM{% endblock %}
-{% block nav-global %}{% endblock %}
-
-{% block content_title %}
-<section class="material-half-bg">
-  <div class="cover"></div>
-</section>
-{% endblock %}
-
-{% block breadcrumbs %}{% endblock %}
-
-{% block content %}
-{% if form.errors and not form.non_field_errors %}
-<div class="alert alert-dismissible alert-danger">
-    <button class="close" type="button" data-dismiss="alert">×</button>
-{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
-<div/>
-{% endif %}
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<div class="alert alert-dismissible alert-danger">
-    <button class="close" type="button" data-dismiss="alert">×</button>
-    {{ error }}
-</div>
-{% endfor %}
-{% endif %}
-
-<div id="content-main" class="login-content">
-<div class="logo">
-  <h1>{{ site_header|default:_('Django administration') }}</h1>
-</div>
-{% if user.is_authenticated %}
-<p class="errornote">
-{% blocktrans trimmed %}
-    You are authenticated as {{ username }}, but are not authorized to
-    access this page. Would you like to login to a different account?
-{% endblocktrans %}
-</p>
-{% endif %}
-<div class="login-box">
-  <form action="{{ app_path }}" method="post" id="login-form" class="login-form">{% csrf_token %}
-    <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>登录</h3>
-    <div class="form-group">
-      <label class="control-label" for="id_username">用户名:</label>
-      <input class="form-control" autofocus="" id="id_username" maxlength="254" name="username" type="text" required="" placeholder="请输入用户名">
-    </div>
-    <div class="form-group">
-
-
-      <label class="control-label" for="id_password">密码:</label>
-      <input id="id_password" class="form-control" name="password" type="password" required="" placeholder="请输入密码">
-      <input type="hidden" name="next" value="{{ next }}" />
-    </div>
-
-    {% url 'admin_password_reset' as password_reset_url %}
-    {% if password_reset_url %}
-        <div class="form-group">
+          {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+          <p class="text-danger small">
+              {{ error }}
+          </p>
+          {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated %}
+        <p class="text-danger small">
+        {% blocktrans trimmed %}
+            You are authenticated as {{ username }}, but are not authorized to
+            access this page. Would you like to login to a different account?
+        {% endblocktrans %}
+        </p>
+        {% endif %}
+        <form action="{{ app_path }}" class="login-form" method="post" id="login-form">{% csrf_token %}
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>{%trans 'Login' %}</h3>
+          <div class="form-group row">
+            {{ form.username.errors }}
+            <div class="col-4"> {{ form.username.label_tag }}</div><div class="col">{% vali_field form.username %}</div>
+          </div>
+          <div class="form-group row">
+            {{ form.password.errors }}
+            <div class="col-4"> {{ form.password.label_tag }} </div><div class="col">{% vali_field form.password %}</div>
+            <input type="hidden" name="next" value="{{ next }}" />
+          </div>
+          <div class="form-group">
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
-                  <input type="checkbox"><span class="label-text">保持登录</span>
+                  <input type="checkbox"><span class="label-text">{% trans 'Stay Signed in' %}</span>
                 </label>
               </div>
-              <p class="semibold-text mb-2"><a data-toggle="flip" href="{{ password_reset_url }}">忘记密码？</a></p>
+              <p class="semibold-text mb-2"><a href="#" data-toggle="flip">{% trans 'Forgotten password?' %}</a></p>
             </div>
           </div>
-    {% endif %}
-    <div class="form-group btn-container">
-      <button type="submit" class="btn btn-primary btn-block" ><i class="fa fa-sign-in fa-lg fa-fw"></i>{% trans 'Log in' %}</button>
-    </div>
-  </form>
-  <form class="forget-form" action="index.html">
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
+          <div class="form-group btn-container">
+            <button type="submit" class="btn btn-primary btn-block" value="{% trans 'Log in' %}"><i class="fa fa-sign-in fa-lg fa-fw"></i>{% trans 'Log in' %}</button>
+          </div>
+        </form>
+        <form class="forget-form" action="index.html">
+
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>{% trans 'Forgotten your password or username?' %}</h3>
           <div class="form-group">
             <label class="control-label">EMAIL</label>
             <input class="form-control" type="text" placeholder="Email">
           </div>
           <div class="form-group btn-container">
-            <button class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RESET</button>
+            {% url 'admin_password_reset' as password_reset_url %}
+            {% if password_reset_url %}
+            <a class="btn btn-primary btn-block" href="{{ password_reset_url }}"><i class="fa fa-unlock fa-lg fa-fw"></i>{% trans 'Forgotten your password or username?' %}</a>
+            {% endif %}
           </div>
           <div class="form-group mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Back to Login</a></p>
           </div>
         </form>
-</div>
-</div>
-{% endblock %}
-{% block content_clear %}{% endblock %}
-{% block footer %}{% endblock %}
+      </div>
+    </section>
+<script src="{% static ''%}vali/assets/js/jquery-3.2.1.min.js"></script>
+<script src="{% static ''%}vali/assets/js/popper.min.js"></script>
+<script src="{% static ''%}vali/assets/js/bootstrap.min.js"></script>
+<script src="{% static ''%}vali/assets/js/main.js"></script>
+<script src="{% static 'vali/assets/vali.js' %}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="{% static ''%}vali/assets/js/plugins/pace.min.js"></script>
+<script type="text/javascript">
+  // Login Page Flipbox control
+  $('.login-content [data-toggle="flip"]').click(function() {
+  	$('.login-box').toggleClass('flipped');
+  	return false;
+  });
+</script>
+</body>
+</html>

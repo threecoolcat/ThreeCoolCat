@@ -2,12 +2,14 @@
 {% load i18n %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-&rsaquo; {{ title }}
-</div>
+<ul class="app-breadcrumb app-breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+    <li class="breadcrumb-item">{{ title }}</li>
+</ul>
 {% endblock %}
 
 {% block content %}
-<p>{% trans "Something's wrong with your database installation. Make sure the appropriate database tables have been created, and make sure the database is readable by the appropriate user." %}</p>
+<div class="tile">
+<p class="text-danger small">{% trans "Something's wrong with your database installation. Make sure the appropriate database tables have been created, and make sure the database is readable by the appropriate user." %}</p>
+</div>
 {% endblock %}

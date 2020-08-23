@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'tinymce',
     'home.apps.HomeConfig',
     'school.apps.SchoolConfig',
     'shop.apps.ShopConfig',
@@ -94,11 +95,15 @@ if DEBUG:
 #     'debug_toolbar.panels.logging.LoggingPanel',
 #     'debug_toolbar.panels.redirects.RedirectsPanel',
 # ]
+#
 VALI_CONFIG = {
-    # 'theme': 'blue',
-    # 'dashboard': {'name': 'dashboard', 'url': '/vali/dashboard/'},
+    'theme': 'blue',
+    # 'dashboard': {'name': '管理中心', 'url': '/dashboard/'},
     'applist': {"order": "registry", "group": True},
+    'font_awesome_url': 'font-awesome/4.7.0/css/font-awesome.min.css',
 }
+TINYMCE_DEFAULT_CONFIG = {'theme': 'silver', 'width': 600, 'height': 300, }
+
 ROOT_URLCONF = 'ThreeCoolCat.urls'
 
 TEMPLATES = [

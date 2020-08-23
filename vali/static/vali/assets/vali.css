@@ -1,0 +1,196 @@
+.app-title {
+padding: 20px 30px 10px;position:fixed!important;width: 100%;z-index:99;
+}
+.treegroup-menu{
+list-style:none;
+}
+.treegroup.is-expanded> .treegroup-menu {
+max-height: 100vh;
+}
+
+.treegroup.is-expanded [data-toggle='treegroup'] {
+    border-left-color: #6c757d;
+    background: #0d1214;
+    border-top:1px solid #343a40;
+}
+.treegroup-menu {
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height 0.3s ease;
+    -o-transition: max-height 0.3s ease;
+    transition: max-height 0.3s ease;
+    background: #2a383e;
+}
+
+.treegroup.is-expanded .treegroup-indicator {
+-webkit-transform: rotate(90deg);
+-ms-transform: rotate(90deg);
+transform: rotate(90deg);
+}
+
+.treegroup .app-menu__item{
+padding: 8px 14px;
+
+}
+#changelist .actions label {
+    vertical-align: middle; vertical-align:-webkit-baseline-middle; vertical-align:-moz-middle-with-baseline;
+}
+#changelist .actions label select{
+   height:30px!important;
+}
+#changelist-search {z-index:98}
+#changelist-search button{height: 30px;bottom: auto!important;}
+
+.list-group .list-group-item{padding: 0.25rem 0.75rem!important;}
+.messagelist {margin-top:66px;}
+
+.vTextField, .vLargeTextField,.vXMLLargeTextField{
+width:100%!important;
+}
+th .collapse:not(.show){
+    display:inline-block!important;
+}
+
+.column-tree_actions {
+    min-width:80px;
+}
+.tile-body .results{
+    margin-right: 0px!important;
+}
+/* SORTABLE TABLES */
+
+thead th {
+    /*padding: 0.5rem 0rem!important;*/
+    line-height: 2rem;
+    text-transform: uppercase;
+    white-space:nowrap;
+}
+
+thead th.sorted .text {
+    padding-right: 42px;
+}
+
+table thead th .text span {
+    padding: 8px 10px;
+    display: block;
+}
+
+table thead th .text a {
+    display: block;
+    cursor: pointer;
+    padding: 8px 10px;
+}
+
+table tbody tr th {
+white-space: nowrap;
+padding:0.25rem;
+}
+thead th.sorted a.sortremove {
+    visibility: hidden;
+}
+
+table thead th.sorted:hover a.sortremove {
+    visibility: visible;
+}
+
+table thead th.sorted .sortoptions {
+    display: block;
+    padding: 9px 5px 0 5px;
+    float: right;
+    text-align: right;
+}
+
+table thead th.sorted .sortpriority {
+    font-size: .8em;
+    min-width: 12px;
+    text-align: center;
+    vertical-align: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+table thead th.sorted .sortoptions a {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background: url('/static/admin/img/sorting-icons.svg') 0 0 no-repeat;
+    background-size: 14px auto;
+}
+
+table thead th.sorted .sortoptions a.sortremove {
+    background-position: 0 0;
+}
+
+table thead th.sorted .sortoptions a.sortremove:after {
+    content: '\\';
+    position: absolute;
+    top: -6px;
+    left: 3px;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+table thead th.sorted .sortoptions a.sortremove:focus,
+table thead th.sorted .sortoptions a.sortremove:hover {
+    background-position: 0 -14px;
+}
+
+table thead th.sorted .sortoptions a.ascending {
+    background-position: 0 -28px;
+}
+
+table thead th.sorted .sortoptions a.ascending:focus,
+table thead th.sorted .sortoptions a.ascending:hover {
+    background-position: 0 -42px;
+}
+
+table thead th.sorted .sortoptions a.descending {
+    top: 1px;
+    background-position: 0 -56px;
+}
+
+table thead th.sorted .sortoptions a.descending:focus,
+table thead th.sorted .sortoptions a.descending:hover {
+    background-position: 0 -70px;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding-top: 0.5rem!important;
+}
+/* selectbox  */
+.related-widget-wrapper .selector{
+width:100%!important;
+}
+
+.related-widget-wrapper .selector select {
+width:100%!important;
+border-radius: 0 0 0px 0px;
+}
+.related-widget-wrapper .selector .selector-filter {
+display:flex;
+padding: 4px;
+}
+.related-widget-wrapper .selector .selector-available{
+width:45%!important;
+}
+.related-widget-wrapper .selector .selector-available input{
+height:1.6rem;
+width:100%;
+
+}
+.related-widget-wrapper .selector h2{
+font-size:18px;
+padding: 4px 0px;
+margin-bottom:0px!important;
+}
+.related-widget-wrapper .selector .selector-chosen{
+width:45%!important;
+}
+
+ul.form-control.vali-multicheckbox {
+    border:none;
+}
+ul.form-control.vali-multicheckbox input {
+    margin-right:5px;
+}

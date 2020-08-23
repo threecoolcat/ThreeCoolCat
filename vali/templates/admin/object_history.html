@@ -1,27 +1,16 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls %}
 
-{% block breadcrumbs %}{% endblock %}
-{% block content_title %}
-<div class="app-title" style="margin: 0px 0px;position:relative;z-index:1020;padding:10px">
-    {% if title %}
-        <div>
-            {% if cl %}
-            <h1><i class="fa fa-th-list"></i>
-                {{ cl.opts.verbose_name_plural|capfirst }}
-            </h1>
-            {% else %}
-                <a class="btn btn-outline-primary" href="javascript:history.back()">
-                    <i class="fa fa-chevron-left"></i>
-                返回【{{ opts.verbose_name_plural|capfirst }}】列表
-                </a>
-            {% endif %}
-
-            {# <p>{{ title }}</p> #}
-        </div>
-    {% endif %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ module_name }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'change' object.pk|admin_urlquote %}">{{ object|truncatewords:"18" }}</a>
+&rsaquo; {% trans 'History' %}
 </div>
 {% endblock %}
+
 {% block content %}
 <div id="content-main">
 <div class="module">
