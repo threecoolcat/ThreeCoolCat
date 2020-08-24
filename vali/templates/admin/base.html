@@ -99,12 +99,12 @@
 {% if not is_popup %}
 {% block appmenu %}
     <div class="app-sidebar">
-        <div class="app-sidebar__user"><i class="fa fa-user-o fa-2x ml-1 mr-3"></i>
-        <div>
-            <p class="app-sidebar__user-name">{% firstof user.get_short_name user.get_username %}</p>
-            <p class="app-sidebar__user-designation">{{ user.email }}</p>
-        </div>
-        </div>
+<!--        <div class="app-sidebar__user"><i class="fa fa-user-o fa-2x ml-1 mr-3"></i>-->
+<!--        <div>-->
+<!--            <p class="app-sidebar__user-name">{% firstof user.get_short_name user.get_username %}</p>-->
+<!--            <p class="app-sidebar__user-designation">{{ user.email }}</p>-->
+<!--        </div>-->
+<!--        </div>-->
         <ul class="app-menu">
             {% if VALI_CONFIG.dashboard %}
                 {% url 'admin:index' as adminurl %}

@@ -7,7 +7,23 @@ from rest_framework.pagination import PageNumberPagination
 from django.views.generic import TemplateView
 from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer
 from .models import HotNews, TechnicalArticle, FriendLinks
+from school.models import Teacher, Course
+from shop.models import Book, Video
 # Create your views here.
+
+
+class DashboardView(TemplateView):
+    template_name = 'home/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # load sample data
+        top_icons = [{"title": "教师", "value": Teacher.objects.count(), "style": "primary", "icon": "fa-users", "link": "/admin/school/teacher/"},
+                     {"title": "课程", "value": Course.objects.count(), "style": "info", "icon": "fa-thumbs-o-up", "link": "/admin/school/course/"},
+                     {"title": "图书", "value": Book.objects.count(), "style": "warning", "icon": "fa-files-o", "link": "/admin/shop/book/"},
+                     {"title": "视频", "value": Video.objects.count(), "style": "danger", "icon": "fa-star", "link": "/admin/shop/video/"}]
+        context['icons'] = top_icons
+        return context
 
 
 class HotNewsView(APIView):
@@ -35,11 +51,6 @@ class FriendLinksView(APIView):
         items = pg.paginate_queryset(friends, request, self)
         serializer = FriendLinksSerializer(items, many=True)
         return Response(serializer.data)
-
-
-
-class DashboardView(TechArticleView):
-    template_name = 'home/dashboard.html'
 
 
 # 自定义404页面

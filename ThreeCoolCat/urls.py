@@ -18,11 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
-from vali.views import ValiDashboardView
+from home.views import DashboardView
 
 urlpatterns = [
     path('', RedirectView.as_view(url="/portal/index.html")),
-    path('dashboard/', ValiDashboardView.as_view()),
+    path('dashboard/', DashboardView.as_view()),
     path(r'tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),

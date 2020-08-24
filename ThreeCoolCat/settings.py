@@ -98,7 +98,7 @@ if DEBUG:
 #
 VALI_CONFIG = {
     'theme': 'blue',
-    # 'dashboard': {'name': '管理中心', 'url': '/dashboard/'},
+    'dashboard': {'name': '管理中心', 'url': '/dashboard/'},
     'applist': {"order": "registry", "group": True},
     'font_awesome_url': 'font-awesome/4.7.0/css/font-awesome.min.css',
 }

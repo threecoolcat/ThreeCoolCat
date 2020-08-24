@@ -70,3 +70,23 @@ class FriendLinks(Article):
 
     def __str__(self):
         return self.title
+
+
+# 操作日志
+class OperationLog(models.Model):
+    id = models.AutoField(primary_key=True)
+    group = models.CharField('分组', db_column='group', null=False, blank=False, default='', max_length=100)
+    sub_group = models.CharField('子分组', db_column='subgroup', null=False, blank=False, default='', max_length=100)
+    content = models.CharField('内容', db_column='content', null=False, blank=False, default='', max_length=255)
+    create_time = models.DateTimeField('创建时间', db_column='create_time', auto_now_add=True)
+    create_user = models.CharField('用户', db_column='create_user', null=False, blank=False, default='', max_length=100)
+    user_agent = models.CharField('UA', db_column='user_agent', null=False, blank=False, default='', max_length=100)
+
+    class Meta:
+        managed = True
+        db_table = 'operation_log'
+        verbose_name = '操作日志'
+        verbose_name_plural = '操作日志'
+
+    def __str__(self):
+        return self.content[:10]
