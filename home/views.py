@@ -3,10 +3,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import JSONParser
 
 from django.views.generic import TemplateView
-from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer
-from .models import HotNews, TechnicalArticle, FriendLinks
+from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer, OperationLogSerializer
+from .models import HotNews, TechnicalArticle, FriendLinks, OperationLog
 from school.models import Teacher, Course
 from shop.models import Book, Video
 # Create your views here.
@@ -55,6 +56,14 @@ class FriendLinksView(APIView):
 
 # 自定义404页面
 def page_not_found(request, exception=None, template_name='404.html'):
-    context = {'hello': 'world'}
+    context = {'e': exception}
     return render(request, '404.html', context)
 
+
+class OperationLogView(APIView):
+    def post(self, request, *args, **kwargs):
+        data = JSONParser().parse(request)
+        serializer = OperationLogSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+        pass

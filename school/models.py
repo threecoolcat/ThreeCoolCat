@@ -43,9 +43,11 @@ class Course(models.Model):
     name = models.CharField('名称', db_column='name', null=False, blank=False, default='', max_length=255)
     cover = models.ImageField('封面', db_column='cover', upload_to='course', null=True, blank=True)
     intro = models.TextField('简介', db_column='intro', null=True, blank=True)
-    period = models.CharField('课程时长', db_column='period', null=True, blank=True, max_length=100)
-    period_amount = models.CharField('课时数量', db_column='period_amount', null=True, blank=True, max_length=100)
+    period = models.CharField('单课时长', db_column='period', null=True, blank=True, max_length=100)
+    # period_amount = models.CharField('学期课时', db_column='period_amount', null=True, blank=True, max_length=100)
+    start_date = models.DateField('开课日期', db_column='start_date', null=True, blank=True)
     category = models.IntegerField('类别', db_column='category', null=True, blank=True, default=1, choices=[(1, '线下课程'), (2, '线上课程')])
+    status = models.BooleanField('状态', db_column='status', null=False, blank=False, default=True)
     enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
 
