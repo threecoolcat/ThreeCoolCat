@@ -22,7 +22,7 @@ class CourseView(APIView):
         serializer = CourseSerializer(items, many=True)
         return Response(serializer.data)
 
-    @csrf_exempt
+    # @csrf_exempt
     def post(self, request, *args, **kwargs):
         data = request.data
         course = Course.objects.get(id=data['id'])

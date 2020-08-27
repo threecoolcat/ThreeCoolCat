@@ -7,6 +7,7 @@ $.ajax({
     data: JSON.stringify({id: id, status: status}),
     headers:{ "X-CSRFtoken":$.cookie("csrftoken")},
     success:function (res) {
+        window.location.reload()
         console.log(res)
     }
 })

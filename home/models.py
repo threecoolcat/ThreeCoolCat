@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 """
 网站通用的内容管理，内容的共性都是通过来列表来管理和展示， 
 使用 abstract Model 的方式定义通用的字段，
@@ -29,7 +30,7 @@ class HotNews(Article):
     link_url = models.CharField('原文链接', db_column='url', null=False, blank=False, default='', max_length=255)
     subtitle = models.CharField('副标题', db_column='subtitle', null=False, blank=False, default='', max_length=255)
     cover = models.ImageField('封面', db_column='cover', upload_to='hotnews', null=True, blank=True)
-    content = models.TextField('内容', db_column='content')
+    content = HTMLField('内容', db_column='content')
 
     class Meta:
         managed = True
@@ -46,7 +47,7 @@ class TechnicalArticle(Article):
     link_url = models.CharField('原文链接', db_column='url', null=False, blank=False, default='', max_length=255)
     subtitle = models.CharField('副标题', db_column='subtitle', null=False, blank=False, default='', max_length=255)
     cover = models.ImageField('封面', db_column='cover', upload_to='techarticle', null=True, blank=True)
-    content = models.TextField('内容', db_column='content')
+    content = HTMLField('内容', db_column='content')
 
     class Meta:
         managed = True
