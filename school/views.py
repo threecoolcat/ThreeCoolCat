@@ -23,7 +23,7 @@ class CourseView(APIView):
         return Response(serializer.data)
 
     # @csrf_exempt
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         data = request.data
         course = Course.objects.get(id=data['id'])
         if course:

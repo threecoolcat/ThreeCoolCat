@@ -55,7 +55,7 @@ class Course(models.Model):
         managed = True
         db_table = 'course'
         verbose_name = '课程'
-        verbose_name_plural = '课程管理'
+        verbose_name_plural = '课程设置'
 
     def __str__(self):
         return self.name

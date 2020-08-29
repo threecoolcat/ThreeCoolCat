@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import JSONParser
 
+from django.http.response import JsonResponse
 from django.views.generic import TemplateView
 from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer, OperationLogSerializer
 from .models import HotNews, TechnicalArticle, FriendLinks, OperationLog
@@ -19,10 +20,27 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # load sample data
-        top_icons = [{"title": "教师", "value": Teacher.objects.count(), "style": "primary", "icon": "fa-users", "link": "/admin/school/teacher/"},
-                     {"title": "课程", "value": Course.objects.count(), "style": "info", "icon": "fa-thumbs-o-up", "link": "/admin/school/course/"},
-                     {"title": "图书", "value": Book.objects.count(), "style": "warning", "icon": "fa-files-o", "link": "/admin/shop/book/"},
-                     {"title": "视频", "value": Video.objects.count(), "style": "danger", "icon": "fa-star", "link": "/admin/shop/video/"}]
+        top_icons = [{"title": "教师",
+                      "value": Teacher.objects.count(),
+                      "style": "primary",
+                      "icon": "fa-users",
+                      "link": "/admin/school/teacher/"},
+                     {"title": "课程",
+                      "value": Course.objects.count(),
+                      "style": "info",
+                      "icon": "fa-thumbs-o-up",
+                      "link": "/admin/school/course/"},
+                     {"title": "图书",
+                      "value": Book.objects.count(),
+                      "style": "warning",
+                      "icon": "fa-files-o",
+                      "link": "/admin/shop/book/"},
+                     {"title": "视频",
+                      "value": Video.objects.count(),
+                      "style": "danger",
+                      "icon": "fa-star",
+                      "link": "/admin/shop/video/"}]
+        # 将拼好的对象返回给页面， 页面模板可以通过 icons 访问该对象
         context['icons'] = top_icons
         return context
 
@@ -54,16 +72,19 @@ class FriendLinksView(APIView):
         return Response(serializer.data)
 
 
-# 自定义404页面
+# 自定义404页面, 函数式视图
 def page_not_found(request, exception=None, template_name='404.html'):
+    # 返回错误信息
     context = {'e': exception}
     return render(request, '404.html', context)
 
 
 class OperationLogView(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         data = JSONParser().parse(request)
         serializer = OperationLogSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-        pass
+            return JsonResponse({'success': 1})
+        else:
+            return JsonResponse({'success': 0})

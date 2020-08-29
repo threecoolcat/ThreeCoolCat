@@ -9,11 +9,9 @@ from .models import Book
 
 class BookView(APIView):
     def get(self, request, *args, **kwargs):
-
-        #
         if 'id' in request.query_params:
-            bookId = request.query_params['id']
-            articles = Book.objects.filter(id=bookId)
+            book_id = request.query_params['id']
+            articles = Book.objects.filter(id=book_id)
         else:
             articles = Book.objects.all()
         pg = PageNumberPagination()
