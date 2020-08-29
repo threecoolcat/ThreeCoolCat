@@ -19,10 +19,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from home.views import DashboardView
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', RedirectView.as_view(url="/portal/index.html")),
-    path('dashboard/', DashboardView.as_view()),
+    # 需要登录验证的视图类，要标记为login_required
+    path('dashboard/', login_required(DashboardView.as_view())),
     path(r'tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),

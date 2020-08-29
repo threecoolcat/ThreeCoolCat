@@ -29,7 +29,7 @@ class SchoolAdmin(admin.ModelAdmin):
 class CourseAdmin(admin.ModelAdmin):
     class Media:
         # 引用js文件
-        js = ['school/course.js']
+        js = ['js/school/course.js']
     list_display = ('name', 'category', 'start_date', 'period', 'cover_show', 'lbl_status', 'enabled', 'order_by', 'lbl_operation')
     readonly_fields = ('cover_show',)
 

@@ -1,7 +1,9 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static admin_modify %}
-{% block content_title %}  {% endblock %}
-{% block title %}{% endblock %}
+{% block branding %}
+<a class="app-header__logo" href="{% url 'admin:index' %}" style="white-space:pre">{{ site_header|default:'三酷猫课堂' }}</a>
+{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 {% block coltype %}colM{% endblock %}
 {% block content %}
 <div class="row">
