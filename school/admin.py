@@ -2,6 +2,9 @@ from django.contrib import admin
 # from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from .models import School, Course, Teacher
+from .forms import CourseForm
+from django.template import loader
+from django.utils.safestring import mark_safe
 # Register your models here.
 
 
@@ -30,8 +33,13 @@ class CourseAdmin(admin.ModelAdmin):
     class Media:
         # 引用js文件
         js = ['js/school/course.js']
+    form = CourseForm
     list_display = ('name', 'category', 'start_date', 'period', 'cover_show', 'lbl_status', 'enabled', 'order_by', 'lbl_operation')
     readonly_fields = ('cover_show',)
+
+    # def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+    #     context['fineuploader_template'] = mark_safe(loader.get_template('upload/fine-uploader-thumbnails.html').render())
+    #     return super(CourseAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
     def cover_show(self, obj):
         return format_html('<img src="%s" width="100px" />' % obj.cover.url if obj.cover else '')

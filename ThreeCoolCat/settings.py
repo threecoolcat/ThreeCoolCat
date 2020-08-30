@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'tinymce',
-    'home.apps.HomeConfig',
     'school.apps.SchoolConfig',
+    'home.apps.HomeConfig',
     'shop.apps.ShopConfig',
     'corsheaders',
 ]
@@ -76,7 +76,7 @@ if DEBUG:
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
     DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    # INTERNAL_IPS = ('127.0.0.1',)
+    INTERNAL_IPS = ('127.0.0.1',)
     DEBUG_TOOLBAR_CONFIG = {
         # Toolbar options
         'JQUERY_URL': '/static/admin/js/vendor/jquery/jquery.min.js',
@@ -125,9 +125,9 @@ WSGI_APPLICATION = 'ThreeCoolCat.wsgi.application'
 LOGIN_URL = '/admin/login'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.BasicAuthentication',
+    # ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
 }
@@ -191,11 +191,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static_dev"),
 ]
 
 # 静态资源的路径配置
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # 网站前端资源目录
