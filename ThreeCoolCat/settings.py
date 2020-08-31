@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 跨域中间件
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,16 +72,16 @@ CORS_ORIGIN_WHITELIST = (
 )
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-if DEBUG:
-    INSTALLED_APPS += ['debug_toolbar.apps.DebugToolbarConfig', ]
-    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
-
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    INTERNAL_IPS = ('127.0.0.1',)
-    DEBUG_TOOLBAR_CONFIG = {
-        # Toolbar options
-        'JQUERY_URL': '/static/admin/js/vendor/jquery/jquery.min.js',
-    }
+# if DEBUG:
+#     INSTALLED_APPS += ['debug_toolbar.apps.DebugToolbarConfig', ]
+#     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
+#
+#     DEBUG_TOOLBAR_PATCH_SETTINGS = False
+#     INTERNAL_IPS = ('127.0.0.1',)
+#     DEBUG_TOOLBAR_CONFIG = {
+#         # Toolbar options
+#         'JQUERY_URL': '/static/admin/js/vendor/jquery/jquery.min.js',
+#     }
 
 VALI_CONFIG = {
     'theme': 'blue',

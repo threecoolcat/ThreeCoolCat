@@ -15,6 +15,7 @@ from shop.models import Book, Video
 # Create your views here.
 
 
+# 主页视图，计算基础统计信息
 class DashboardView(TemplateView):
     template_name = 'home/dashboard.html'
 
@@ -22,22 +23,22 @@ class DashboardView(TemplateView):
         context = super().get_context_data(**kwargs)
         # load sample data
         top_icons = [{"title": "教师",
-                      "value": Teacher.objects.count(),
+                      "value": Teacher.objects.filter(enabled=True).count(),
                       "style": "primary",
                       "icon": "fa-users",
                       "link": "/admin/school/teacher/"},
                      {"title": "课程",
-                      "value": Course.objects.count(),
+                      "value": Course.objects.filter(enabled=True, status=True).count(),
                       "style": "info",
                       "icon": "fa-thumbs-o-up",
                       "link": "/admin/school/course/"},
                      {"title": "图书",
-                      "value": Book.objects.count(),
+                      "value": Book.objects.filter(enabled=True).count(),
                       "style": "warning",
                       "icon": "fa-files-o",
                       "link": "/admin/shop/book/"},
                      {"title": "视频",
-                      "value": Video.objects.count(),
+                      "value": Video.objects.filter(enabled=True).count(),
                       "style": "danger",
                       "icon": "fa-star",
                       "link": "/admin/shop/video/"}]
@@ -48,12 +49,19 @@ class DashboardView(TemplateView):
         return context
 
 
-class HotNewsView(APIView):
+class ArticlesView(APIView):
     def get(self, request, *args, **kwargs):
-        hotnews = HotNews.objects.all()
         pg = ThePager()
-        items = pg.paginate_queryset(hotnews, request, self)
-        serializer = HotNewsSerializer(items, many=True)
+        if kwargs['type'] and kwargs['type'] == 'news':
+            articles = HotNews.objects.all()
+            items = pg.paginate_queryset(articles, request, self)
+            serializer = HotNewsSerializer(items, many=True)
+        elif kwargs['type'] and kwargs['type'] == 'tech':
+            articles = TechnicalArticle.objects.all()
+            items = pg.paginate_queryset(articles, request, self)
+            serializer = TechnicalArticleSerializer(items, many=True)
+        else:
+            return JsonResponse({'success': 0, 'msg': 'wrong type', 'results': []})
         return pg.get_paginated_response(serializer.data)
 
 

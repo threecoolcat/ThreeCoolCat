@@ -8,11 +8,19 @@ from django.utils.safestring import mark_safe
 # Register your models here.
 
 
+# 校区管理中显示的课程列表
+class CourseInline(admin.TabularInline):
+    fields = ('id', 'name', 'category', 'start_date')
+    model = Course
+    extra = 1
+
+
 @admin.register(School)
 class SchoolAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'linkman', 'phone', 'cover_show', 'enabled', 'order_by')
+    list_display = ('name', 'address', 'linkman', 'phone', 'cover_show', 'enabled', )
     search_fields = ('name', 'address', 'linkman', 'phone')
     readonly_fields = ('cover_show',)
+    inlines = (CourseInline, )
 
     def cover_show(self, obj):
         # 使用位置参数格式化字符串
@@ -34,8 +42,9 @@ class CourseAdmin(admin.ModelAdmin):
         # 引用js文件
         js = ['js/school/course.js']
     form = CourseForm
-    list_display = ('name', 'category', 'start_date', 'period', 'cover_show', 'lbl_status', 'enabled', 'order_by', 'lbl_operation')
+    list_display = ('name', 'school', 'category', 'start_date', 'period', 'cover_show', 'enabled', 'lbl_status', 'lbl_operation')
     readonly_fields = ('cover_show',)
+    list_filter = ('school', 'category')
 
     # def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
     #     context['fineuploader_template'] = mark_safe(loader.get_template('upload/fine-uploader-thumbnails.html').render())
@@ -60,7 +69,7 @@ class CourseAdmin(admin.ModelAdmin):
 
     lbl_operation.short_description = '操作'
     fieldsets = [
-        ('基本信息', {'fields': ('name', 'category', 'start_date', 'period',)}),
+        ('基本信息', {'fields': ('name', 'school', 'category', 'start_date', 'period',)}),
         ('封面', {'fields': ('cover', 'cover_show')}),
         ('简介', {'fields': ('intro',)}),
         ('管理信息', {'fields': ('enabled', 'order_by')})
