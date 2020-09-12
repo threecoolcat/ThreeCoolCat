@@ -50,3 +50,5 @@ class FriendLinksAdmin(admin.ModelAdmin):
 
 
 
+class OperationLogAdmin(admin.ModelAdmin):
+    list_display = {'fields': ('', '')}

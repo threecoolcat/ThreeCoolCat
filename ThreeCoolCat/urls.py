@@ -37,8 +37,6 @@ urlpatterns = [
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # 文件上传目录
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# 前端页面展现目录
-urlpatterns += static(settings.PORTAL_URL, document_root=settings.PORTAL_ROOT)
 
 if settings.DEBUG:
     # 开发阶段起用调试工具栏

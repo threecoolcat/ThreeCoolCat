@@ -52,8 +52,8 @@ class TechnicalArticle(Article):
     class Meta:
         managed = True
         db_table = 'technical_article'
-        verbose_name = '技术文章'
-        verbose_name_plural = '技术文章管理'
+        verbose_name = '活动'
+        verbose_name_plural = '活动管理'
 
     def __str__(self):
         return self.title

@@ -199,9 +199,6 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-# 网站前端资源目录
-PORTAL_ROOT = os.path.join(BASE_DIR, 'portal')
-PORTAL_URL = '/portal/'
 
 # 文件上传的路径配置
 MEDIA_URL = '/files/'
