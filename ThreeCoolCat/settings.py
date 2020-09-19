@@ -72,17 +72,6 @@ CORS_ORIGIN_WHITELIST = (
 )
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-# if DEBUG:
-#     INSTALLED_APPS += ['debug_toolbar.apps.DebugToolbarConfig', ]
-#     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
-#
-#     DEBUG_TOOLBAR_PATCH_SETTINGS = False
-#     INTERNAL_IPS = ('127.0.0.1',)
-#     DEBUG_TOOLBAR_CONFIG = {
-#         # Toolbar options
-#         'JQUERY_URL': '/static/admin/js/vendor/jquery/jquery.min.js',
-#     }
-
 VALI_CONFIG = {
     'theme': 'blue',
     'dashboard': {'name': '管理中心', 'url': '/dashboard/'},
@@ -97,7 +86,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 定义模版文件所在的路径
-        'DIRS': ['templates'],
+        'DIRS': ['templates', 'website/dist'],
         # 是否读取应用下的模版
         # Django 加载模版的规则是： 最短路径原则， 也就是说
         # 如果出现多个同名的模版文件，
@@ -193,6 +182,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_dev"),
+    os.path.join(BASE_DIR, "website/dist/static")
 ]
 
 # 静态资源的路径配置

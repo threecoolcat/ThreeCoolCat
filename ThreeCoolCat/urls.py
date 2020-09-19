@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from home.views import DashboardView
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('', RedirectView.as_view(url="/portal/index.html")),
+    # path('', RedirectView.as_view(url="/admin/")),
     # 需要登录验证的视图类，要标记为login_required
+    path('', TemplateView.as_view(template_name='index.html')),
     path('dashboard/', login_required(DashboardView.as_view())),
     path(r'tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
@@ -37,8 +38,3 @@ urlpatterns = [
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # 文件上传目录
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-if settings.DEBUG:
-    # 开发阶段起用调试工具栏
-    import debug_toolbar
-    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
