@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * 精品课程后台接口
+ * 校区后台接口
  */
 export function getSchools(params) {
     return request({

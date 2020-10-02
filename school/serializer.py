@@ -13,7 +13,7 @@ class CourseSerializer(serializers.ModelSerializer):
     teachers = serializers.SerializerMethodField()
 
     def get_teachers(self, obj):
-        return obj.teacher_set.values('id', 'name')
+        return obj.teacher_set.values()
 
     class Meta:
         model = Course
@@ -21,6 +21,9 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
+    courses = serializers.SerializerMethodField()
+    def get_courses(self, obj):
+        return obj.course_set.values()
     class Meta:
         model = Teacher
         fields = "__all__"

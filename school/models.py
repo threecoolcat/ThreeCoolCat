@@ -74,6 +74,7 @@ class Teacher(models.Model):
     title = models.CharField('学位', db_column='title', null=False, blank=False, default='', max_length=255)
     duty = models.CharField('职位', db_column='duty', null=False, blank=False, default='', max_length=255)
     photo = models.ImageField('照片', db_column='photo', upload_to='teacherphoto', null=False, blank=False, default='')
+    keyword = models.CharField('关键词', db_column='keyword', null=True, blank=True, default='', max_length=255)
     intro = HTMLField('简介', db_column='intro', null=True, blank=True)
     school = models.ForeignKey(verbose_name='学校', to=School, on_delete=models.DO_NOTHING, to_field='id', null=True,
                                blank=True)

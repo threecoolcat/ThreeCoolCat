@@ -2,11 +2,13 @@
     <div>
         <el-row v-for="course in courseList" :key="course.id" type="flex" class="grid-row course" justify="center">
             <el-col class="grid-block">
-                <div style="padding:0 20px">
+                <div style="padding:20px 20px">
                     <img :src="course.cover" width="300px" height="320px" />
                 </div>
                 <div style="flex:1">
-                    <div class="title">课程名称： {{course.name}}</div>
+                    <router-link :to="{path: '/courseDetail', query: {id: course.id}}">
+                        <div class="title">课程名称： {{course.name}}</div>
+                    </router-link>
                     <div class="title"><div class="intro" v-html="course.intro"/> </div>
                     <div class="content">开课日期： {{course.start_date || '待定'}}</div>
                     <div class="content">类别： {{course.category | categroyLabel }}</div>
@@ -15,7 +17,7 @@
             </el-col>
         </el-row>
         <el-row type="flex" class="grid-row" justify="center">
-           
+            
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"

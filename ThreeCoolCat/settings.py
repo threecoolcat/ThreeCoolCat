@@ -106,7 +106,7 @@ TEMPLATES = [
         # 1.在 django包的templstes目录下有 index.html
         # 2.在 当前项目的templates目录下有 index.html
         # 3.在 当前应用的templates目录下有 index.html
-        # 当我们定义的视图 指向了index.html,会先找3 ，如果没找到会找2 ，还没找到会找1， 如果1也没有， 会抛出未找到文件的异常
+        # 当我们定义的视图 指向了index.html,会先找3，如果没找到会找2，还没找到会找1，如果1也没有，会抛出未找到文件的异常
         # 因此， 我们通过这个规则，可以对django自身的模版进行重新定义
         # 同理，我们要用到的静态资源文件（js文件，css文件，图片文件）也是相同的寻找原则
 
@@ -190,7 +190,6 @@ STATICFILES_DIRS = [
 # 静态资源的路径配置
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 
 # 文件上传的路径配置
 MEDIA_URL = '/files/'
