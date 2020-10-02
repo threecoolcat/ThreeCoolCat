@@ -49,7 +49,7 @@
                     <div>
                         <div style="font-size:12px">《{{course.name}}》</div>
                         <!-- <div style="font-size:12px">{{book.author?book.author:'无名'}}&nbsp;著</div> -->
-                        <div style="font-size:12px">{{course.intro}}&nbsp;</div>
+                        <div class="course-intro" v-html="course.intro"></div>
                     </div>
                 </div>
                 
@@ -202,63 +202,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
-
-.banner {
-    height: 320px;
-    background:linear-gradient(135deg,rgba(15,67,255,1) 0%, rgba(35,173,255,1) 75%);
-    position: relative;
-    display: flex;
-    justify-content:center;
-    .title1 {
-        position: absolute;
-        left: 40px;
-        top: 40px;
-        color: #fff;
-        font-size: 36px;
-        
-    }
-    .title2 {
-        position: absolute;
-        left: 200px;
-        top: 110px;
-        color: #fff;
-        font-size: 32px;
-        transform:rotate(30deg);
-    }
-    .title3 {
-        position: absolute;
-        left: 380px;
-        top: 160px;
-        color: #fff;
-        font-size: 32px;
-        transform:rotate(90deg);
-    }
-    .title4 {
-        position: absolute;
-        left: 780px;
-        top: 210px;
-        color: #fff;
-        font-size: 36px;
-        transform:rotate(45deg);
-    }
-    .title5 {
-        position: absolute;
-        left: 620px;
-        top: 200px;
-        color: #fff;
-        font-size: 24px;
-        transform:rotate(17deg);
-    }
-    .title6 {
-        position: absolute;
-        left: 680px;
-        top: 32px;
-        color: #fff;
-        font-size: 36px;
-        
-    }
+.course-intro {
+    font-size:12px; 
+    margin:6px;
+    height:140px;
+    overflow: hidden;
 }
+
 
 
 </style>

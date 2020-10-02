@@ -13,13 +13,15 @@
                     <div style="margin-top: 10px">关于我们</div>
                 </el-col>
                 <el-col :span="6">
-                    <div style="margin-top: 10px">微信公众号</div>
-                    <div style="background-color:#ccc;width:120px;height:120px;margin-top:10px"></div>
+                    <div style="margin-top: 10px">主页</div>
+                    <div style="background-color:#ccc;width:130px;height:130px;margin-top:10px">
+                        <img src="static/ThreeCoolCat.png" width="130px" height="130px"/>
+                    </div>
                 </el-col>
                 <el-col :span="6">
                     <div style="margin-top: 10px">咨询热线</div>
                     <div style="margin-top: 10px">
-                        13x-xxxx-xxxx
+                        186-0042-4201
                     </div>
                     <div style="margin-top: 10px">联系邮箱</div>
                     <div style="margin-top: 10px">
@@ -27,7 +29,7 @@
                     </div>
                     <div style="margin-top: 10px">公司地址</div>
                     <div style="margin-top: 10px">
-                        天津市XX区XX路XX号
+                        北京市XX区XX路XX号
                     </div>
                 </el-col>
             </el-row>

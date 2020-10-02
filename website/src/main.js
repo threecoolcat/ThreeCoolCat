@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
- import './assets/style/css/element_ui.less'
+import '@/assets/style/css/element_ui.less'
 Vue.use(Element, {
   size: 'small', // set element-ui default size
 })

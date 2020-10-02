@@ -12,16 +12,16 @@
                     router
                     style="padding-left:40px"
                     >
-                    <el-menu-item index="home" :route="{path: '/'}">首页</el-menu-item>
-                    <el-submenu index="2">
+                    <el-menu-item index="/" :route="{path: '/'}">首页</el-menu-item>
+                    <el-submenu index="">
                         <template slot="title">{{ activeSchoolName }}</template>
                         <el-menu-item v-for="school in schoolList" :key="school.id" @click="handleChangeSchool(school)">{{ school.name}}</el-menu-item>
                         <router-link to="/schoolList"><el-menu-item>更多...</el-menu-item></router-link>
                     </el-submenu>
-                    <el-menu-item index="3" :route="{path: '/teacherList'}">名师风采</el-menu-item>
-                    <el-menu-item index="4" :route="{path: '/courseList'}">课程设置</el-menu-item>
-                    <el-menu-item index="5" :route="{path: '/bookList'}">精品图书</el-menu-item>
-                    <el-menu-item index="6" :route="{path: '/hotNewList'}">热点资讯</el-menu-item>
+                    <el-menu-item index="/teacherList" :route="{path: '/teacherList'}">名师风采</el-menu-item>
+                    <el-menu-item index="/courseList" :route="{path: '/courseList'}">课程设置</el-menu-item>
+                    <el-menu-item index="/bookList" :route="{path: '/bookList'}">精品图书</el-menu-item>
+                    <el-menu-item index="/hotNewList" :route="{path: '/hotNewList'}">热点资讯</el-menu-item>
                 </el-menu>
                 <div style="">
                     <div><a style="color:#17BA7A" href="/dashboard/">登录</a></div>
@@ -46,28 +46,21 @@ export default {
     },
     // 过滤器
     filter: {},
-    watch: {
-        'activeSchoolId' (v) {
-            console.log(v)
-            
-        },
-    },
     // 计算属性
     computed: {
         ...mapGetters([
             'activeSchoolId',
         ]),
     },
-
     // 模板编译挂载之后
     created() {
-        
-    },
-    mounted() {
         getSchools().then(res=>{
             this.schoolList = res.results;
             this.loadSchoolById(this.activeSchoolId)
         })
+    },
+    mounted() {
+        
     },
     // 事件方法
     methods: {
