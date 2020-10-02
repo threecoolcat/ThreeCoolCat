@@ -1,27 +1,42 @@
 <template>
     <div>
-        <div class="banner">
-            <div style="flex:1" />
-            <div class="title1">
-                Python3.8
+        <!-- <div class="banner">
+            <div style="width:1080px;position: relative;">
+                <div class="title1">
+                    Python3.8
+                </div>
+                <div class="title2">
+                    Django 3
+                </div>
+                <div class="title5">
+                    Admin
+                </div>
+                <div class="title3">
+                    View
+                </div>
+                <div class="title4">
+                    Template
+                </div>
+                <div class="title6">
+                    Vue
+                </div>
             </div>
-            <div class="title2">
-                Django 3
-            </div>
-            <div class="title5">
-                Admin
-            </div>
-            <div class="title3">
-                View
-            </div>
-            <div class="title4">
-                Template
-            </div>
-            <div class="title6">
-                Vue
-            </div>
-        </div>
-        
+        </div> -->
+        <el-row type="flex" justify="center" class="grid-row school">
+            <el-col class="grid-block">
+                <div style="padding:0 20px">
+                    <img :src="school.cover" width="300px" height="320px" />
+                </div>
+                <div style="flex:1">
+                    <div style="color:#eee;font-size:20px;line-height:32px;padding:10px">学校名称： {{school.name}}</div>
+                    <div style="color:#eee;font-size:20px;line-height:32px;padding:10px;"><div class="intro" v-html="school.intro"/> </div>
+                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">学校地址： {{school.address}}</div>
+                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">联系人： {{school.linkman}}</div>
+                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">联系电话： {{school.phone}}</div>
+                    
+                </div>
+            </el-col>
+        </el-row>
         <el-row type="flex" justify="center" class="grid-row even">
             <el-col class="grid-block">
                 <el-divider>推荐课程</el-divider>
@@ -109,10 +124,13 @@
 </template>
 <script>
 import { getBooks, getVideos } from '@/api/shop'
-import { getCourses, getTeachers} from '@/api/school'
+import { getSchools, getCourses, getTeachers} from '@/api/school'
+import { mapGetters } from 'vuex'
 export default {
     data() {
         return {
+            schoolId: null,
+            school: {},
             bookList: [],
             courseList: [],
             teacherList: [],
@@ -120,15 +138,31 @@ export default {
         }
     },
     created() {
-        
-    },
-    mounted() {
+        this.getSchools()
         this.getBookList()
         this.getCourseList()
         this.getTeacherList()
         this.getVideoList()
     },
+    computed: {
+        ...mapGetters([
+            'activeSchoolId'
+        ])
+    },
+    watch: {
+        activeSchoolId(v) {
+            // 切换学校以后，切换对应的课程和教师
+            this.getSchools()
+            this.getCourseList()
+            this.getTeacherList()
+        }
+    },
     methods: {
+        getSchools() {
+            getSchools({page: 1, size: 1, id: this.activeSchoolId}).then(res=>{
+                this.school = res.results[0]
+            })
+        },
         getBookList() {
             /**
              * 当前页面展示最多5条数据， 最后一条是“更多”，跳转至图书列表页面
@@ -141,8 +175,7 @@ export default {
             /**
              * 当前页面展示最多5条数据， 最后一条是“更多”，跳转至课程列表页面
              */
-            var schoolId = window.localStorage.getItem('active-school')
-            getCourses({page: 1, size: 5, school: schoolId}).then(res=>{
+            getCourses({page: 1, size: 5, school: this.activeSchoolId}).then(res=>{
                 this.courseList = res.results
             })
         },
@@ -150,8 +183,7 @@ export default {
             /**
              * 当前页面展示最多5条数据， 最后一条是“更多”，跳转至课程列表页面
              */
-            var schoolId = window.localStorage.getItem('active-school')
-            getTeachers({page: 1, size: 5, school: schoolId}).then(res=>{
+            getTeachers({page: 1, size: 5, school: this.activeSchoolId}).then(res=>{
                 this.teacherList = res.results
             })
         },
@@ -171,14 +203,28 @@ export default {
 </script>
 <style lang="less" scoped>
 
+.school {
+    height: 320px;
+    background:linear-gradient(135deg,rgba(15,67,255,1) 0%, rgba(35,173,255,1) 75%);
+    .intro {
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+}
 .banner {
     height: 320px;
     background:linear-gradient(135deg,rgba(15,67,255,1) 0%, rgba(35,173,255,1) 75%);
     position: relative;
     display: flex;
+    justify-content:center;
     .title1 {
         position: absolute;
-        left: 240px;
+        left: 40px;
         top: 40px;
         color: #fff;
         font-size: 36px;
@@ -186,7 +232,7 @@ export default {
     }
     .title2 {
         position: absolute;
-        left: 400px;
+        left: 200px;
         top: 110px;
         color: #fff;
         font-size: 32px;
@@ -194,7 +240,7 @@ export default {
     }
     .title3 {
         position: absolute;
-        left: 580px;
+        left: 380px;
         top: 160px;
         color: #fff;
         font-size: 32px;
@@ -202,7 +248,7 @@ export default {
     }
     .title4 {
         position: absolute;
-        left: 900px;
+        left: 780px;
         top: 210px;
         color: #fff;
         font-size: 36px;
@@ -210,7 +256,7 @@ export default {
     }
     .title5 {
         position: absolute;
-        left: 800px;
+        left: 620px;
         top: 200px;
         color: #fff;
         font-size: 24px;
@@ -218,7 +264,7 @@ export default {
     }
     .title6 {
         position: absolute;
-        left: 840px;
+        left: 680px;
         top: 32px;
         color: #fff;
         font-size: 36px;

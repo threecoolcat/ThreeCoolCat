@@ -33,33 +33,29 @@
 
 <script>
 import {getSchools} from '@/api/school'
+import { mapGetters } from 'vuex'
 export default {
     name: 'mainHeader',
     data() {
         return {
             activeMenu: 'home', // 默认校区
-            activeSchool: 1,
-            schoolList: []
+            schoolList: [],
+            activeSchoolName: ''
         }
     },
     // 过滤器
     filter: {},
-
+    watch: {
+        'activeSchoolId' (v) {
+            console.log(v)
+            
+        },
+    },
     // 计算属性
     computed: {
-        activeSchoolName() {
-            for (var idx in this.schoolList) {
-                if (this.schoolList[idx].id === this.activeSchool) {
-                    return this.schoolList[idx].name
-                } 
-            }
-            return this.schoolList[0]
-        }
-    },
-
-    // 监听属性
-    watch: {
-        
+        ...mapGetters([
+            'activeSchoolId',
+        ]),
     },
 
     // 模板编译挂载之后
@@ -69,21 +65,25 @@ export default {
     mounted() {
         getSchools().then(res=>{
             this.schoolList = res.results;
-            var schoolId = window.localStorage.getItem('active-school')
-            if (schoolId) {
-                this.activeSchool = Number(schoolId)
-            } else {
-                this.activeSchool = 1
-            }
+            this.loadSchoolById(this.activeSchoolId)
         })
     },
     // 事件方法
     methods: {
         //切换当前学校
         handleChangeSchool(val) {
-            window.localStorage.setItem('active-school', val.id)
-            this.activeSchool = val.id
-            this.$router.replace('/')
+            this.$store.dispatch('changeSchool', val.id).then(()=>{
+                this.loadSchoolById(val.id)
+                this.$router.replace('/')
+            })
+        },
+        loadSchoolById(schoolId) {
+            for (var idx in this.schoolList) {
+                if (this.schoolList[idx].id == schoolId) {
+                    this.activeSchoolName = this.schoolList[idx].name
+                    return;
+                } 
+            }
         }
     }
 
