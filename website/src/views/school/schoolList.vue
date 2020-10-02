@@ -15,7 +15,7 @@
                 </div>
             </el-col>
         </el-row>
-        <el-row type="flex" class="grid-row school" justify="center">
+        <el-row type="flex" class="grid-row" justify="center">
            
                 <el-pagination
                 @size-change="handleSizeChange"
