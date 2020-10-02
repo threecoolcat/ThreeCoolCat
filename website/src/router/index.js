@@ -14,9 +14,7 @@ export const constantRoutes = [
         icon: '',
         name: 'home',
         component: () => import('@/views/home'),
-        meta: {
-          // active: 'login',
-        }
+        
       },
       {
         path: 'hotNewList',
@@ -25,8 +23,7 @@ export const constantRoutes = [
         name: 'hotNewList',
         component: () => import('@/views/home/hotNewList'),
         hidden: false,
-        meta: {
-        }
+        
       },
       {
         path: 'hotNewDetail',
@@ -39,14 +36,22 @@ export const constantRoutes = [
         }
       },
       {
+        path: 'schoolList',
+        title: '课程列表',
+        icon: '',
+        name: 'schoolList',
+        component: () => import('@/views/school/schoolList'),
+        hidden: false,
+        
+      },
+      {
         path: 'courseList',
         title: '课程列表',
         icon: '',
         name: 'courseList',
         component: () => import('@/views/school/courseList'),
         hidden: false,
-        meta: {
-        }
+        
       },
       {
         path: 'courseDetail',
@@ -55,8 +60,7 @@ export const constantRoutes = [
         name: 'courseDetail',
         component: () => import('@/views/school/courseDetail'),
         hidden: true,
-        meta: {
-        }
+        
       },
       {
         path: 'teacherList',
@@ -65,8 +69,7 @@ export const constantRoutes = [
         name: 'teacherList',
         component: () => import('@/views/school/teacherList'),
         hidden: false,
-        meta: {
-        }
+        
       },
       {
         path: 'teacherDetail',
@@ -85,8 +88,7 @@ export const constantRoutes = [
         name: 'bookList',
         component: () => import('@/views/shop/bookList'),
         hidden: false,
-        meta: {
-        }
+        
       },
       {
         path: 'bookDetail',
@@ -95,8 +97,6 @@ export const constantRoutes = [
         name: 'bookDetail',
         component: () => import('@/views/shop/bookDetail'),
         hidden: true,
-        meta: {
-        }
       },
       
     ]

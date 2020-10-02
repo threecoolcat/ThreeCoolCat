@@ -26,7 +26,7 @@ urlpatterns = [
     # 需要登录验证的视图类，要标记为login_required
     path('', TemplateView.as_view(template_name='index.html')),
     path('dashboard/', login_required(DashboardView.as_view())),
-    path(r'tinymce/', include('tinymce.urls')),
+    path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('shop/', include('shop.urls')),

@@ -40,15 +40,8 @@ module.exports = {
             '/': {
                 target: process.env.VUE_APP_BASE_API,
                 changeOrigin: true,
-                // pathRewrite: {
-                //     '^/file/task': '/file/task'
-                // },
-
             },
-            // '/static/': {
-            //     target: process.env.VUE_APP_BASE_API,
-            //     changeOrigin: true,
-            // }
+            
         }
         // after: require('./mock/mock-server.js')
     },

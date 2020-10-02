@@ -1,6 +1,6 @@
 <template>
 <el-container style="position:relative">
-  <el-header height="62">
+  <el-header height="62px">
     <main-header/>
   </el-header>
   <el-main>

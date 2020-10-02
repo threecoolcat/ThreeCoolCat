@@ -12,12 +12,15 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# 以下代码可以放在 __init__.py中
+# pymysql配置开始
 import pymysql
 # 避免出现错误：
 # django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
 pymysql.version_info = (1, 4, 6, 'final', 0)
 # 启用pymysql的驱动模式， 否则不能用于django
 pymysql.install_as_MySQLdb()
+# pymysql配置结束
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,7 +53,7 @@ INSTALLED_APPS = [
     'school.apps.SchoolConfig',
     'home.apps.HomeConfig',
     'shop.apps.ShopConfig',
-    'corsheaders',
+    'corsheaders',  # 跨域组件
 ]
 
 MIDDLEWARE = [
@@ -64,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# 前端端分离时，要允许跨越请求
+# 跨越请求设置
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
@@ -72,12 +75,15 @@ CORS_ORIGIN_WHITELIST = (
 )
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+# vali组件设置
 VALI_CONFIG = {
-    'theme': 'blue',
-    'dashboard': {'name': '管理中心', 'url': '/dashboard/'},
-    'applist': {"order": "registry", "group": True},
-    'font_awesome_url': 'font-awesome/4.7.0/css/font-awesome.min.css',
+    'theme': 'blue',  # 默认皮肤样式， 可选 brown green purple
+    'dashboard': {'name': '管理中心', 'url': '/dashboard/'},  # 主页面链接
+    'applist': {"order": "registry", "group": True},  # 应用排序规则
+    'font_awesome_url': 'font-awesome/4.7.0/css/font-awesome.min.css',  # 字体库地址
 }
+
+# 富文本组件配置
 TINYMCE_DEFAULT_CONFIG = {'theme': 'silver', 'width': 600, 'height': 300, }
 
 ROOT_URLCONF = 'ThreeCoolCat.urls'
@@ -86,6 +92,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 定义模版文件所在的路径
+        #         模板路径        前后端分离的部署目录
         'DIRS': ['templates', 'website/dist'],
         # 是否读取应用下的模版
         # Django 加载模版的规则是： 最短路径原则， 也就是说
@@ -115,11 +122,8 @@ WSGI_APPLICATION = 'ThreeCoolCat.wsgi.application'
 LOGIN_URL = '/admin/login'
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.BasicAuthentication',
-    # ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5  # 默认分页大小
 }
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -133,7 +137,7 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        # 引擎名称
+        # 数据库引擎名称
         'ENGINE': 'django.db.backends.mysql',
         # 数据库名称
         'NAME': 'threecoolcat',
@@ -167,10 +171,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+# 语言：汉语
 LANGUAGE_CODE = 'zh-hans'
-
+# 时区 中国
 TIME_ZONE = 'Asia/Shanghai'
-
 USE_I18N = True
 
 USE_L10N = True

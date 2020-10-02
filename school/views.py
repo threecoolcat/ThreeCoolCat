@@ -14,11 +14,11 @@ from home.utils import ThePager
 class SchoolView(APIView):
     def get(self, request, *args, **kwargs):
         if 'id' in request.query_params:
-            teachers = School.objects.filter(id=request.query_params['id'])
+            schools = School.objects.filter(id=request.query_params['id'])
         else:
-            teachers = School.objects.all()
+            schools = School.objects.all()
         pg = ThePager()
-        items = pg.paginate_queryset(teachers, request, self)
+        items = pg.paginate_queryset(schools, request, self)
         serializer = SchoolSerializer(items, many=True)
         return pg.get_paginated_response(serializer.data)
 
@@ -33,7 +33,7 @@ class CourseView(APIView):
         else:
             courses = Course.objects.all()
         if 'school' in request.query_params:
-            courses = courses.filter()
+            courses = courses.filter(school__exact=request.query_params['school'])
         # 分页功能
         pg = ThePager()
         items = pg.paginate_queryset(courses, request, self)
@@ -62,6 +62,8 @@ class TeacherView(APIView):
             teachers = Teacher.objects.filter(id=request.query_params['id'])
         else:
             teachers = Teacher.objects.all()
+        if 'school' in request.query_params:
+            courses = teachers.filter(school__exact=request.query_params['school'])
         pg = ThePager()
         items = pg.paginate_queryset(teachers, request, self)
         serializer = TeacherSerializer(items, many=True)

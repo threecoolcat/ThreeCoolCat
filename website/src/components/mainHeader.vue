@@ -16,6 +16,7 @@
                     <el-submenu index="2">
                         <template slot="title">{{ activeSchoolName }}</template>
                         <el-menu-item v-for="school in schoolList" :key="school.id" @click="handleChangeSchool(school)">{{ school.name}}</el-menu-item>
+                        <router-link to="/schoolList"><el-menu-item>更多...</el-menu-item></router-link>
                     </el-submenu>
                     <el-menu-item index="3" :route="{path: '/teacherList'}">名师风采</el-menu-item>
                     <el-menu-item index="4" :route="{path: '/courseList'}">课程设置</el-menu-item>

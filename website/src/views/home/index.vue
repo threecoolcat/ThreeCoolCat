@@ -203,19 +203,7 @@ export default {
 </script>
 <style lang="less" scoped>
 
-.school {
-    height: 320px;
-    background:linear-gradient(135deg,rgba(15,67,255,1) 0%, rgba(35,173,255,1) 75%);
-    .intro {
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-    }
-}
+
 .banner {
     height: 320px;
     background:linear-gradient(135deg,rgba(15,67,255,1) 0%, rgba(35,173,255,1) 75%);
@@ -271,36 +259,6 @@ export default {
         
     }
 }
-.grid-row {
-    &.even {
-        background-color: #fff;
-    }
-    &.odd {
-        background-color: #f1f2f3;
-    }
-    .grid-block {
-        width:1080px;display:flex;flex-wrap:wrap;justify-content:left;
-        .grid-content {
-            // background-color: red;
 
-            width: 280px;
-            height: 160px;
-            margin: 20px;
-        }
-        .grid-book {
-            background-color: #fff;
-            border:1px solid #ddd;
-            padding: 10px;
-            border-radius: 4px;
-            display:flex;
-            // justify-content: center;
-            a {
-                font-size:14px;
-                width: 100%;
-            }
-        }
-    }
-    
-}
 
 </style>

@@ -52,7 +52,8 @@ class Course(models.Model):
     status = models.BooleanField('状态', db_column='status', null=False, blank=False, default=True)
     enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
-    school = models.ForeignKey(verbose_name='学校', to=School, on_delete=models.DO_NOTHING, to_field='id', null=True, blank=True)
+    school = models.ForeignKey(verbose_name='学校', to=School, on_delete=models.DO_NOTHING, to_field='id', null=True,
+                               blank=True)
 
     class Meta:
         managed = True
@@ -64,17 +65,6 @@ class Course(models.Model):
         return self.name
 
 
-# class TeacherWithCourse(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     course = models.ForeignKey('school.Course', on_delete=models.CASCADE, verbose_name='课程', null=True, blank=True,
-#                                related_name='teacher_courses', db_column='course_id')
-#     teacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE, verbose_name='教师', null=True, blank=True,
-#                                 related_name='course_teachers', db_column='teacher_id')
-#
-#     class Meta:
-#         db_table = 'teacher_course'
-
-
 class Teacher(models.Model):
     """教师表"""
     id = models.AutoField(primary_key=True)
@@ -83,6 +73,8 @@ class Teacher(models.Model):
     duty = models.CharField('职位', db_column='duty', null=False, blank=False, default='', max_length=255)
     photo = models.ImageField('照片', db_column='photo', upload_to='teacherphoto', null=False, blank=False, default='')
     intro = HTMLField('简介', db_column='intro', null=True, blank=True)
+    school = models.ForeignKey(verbose_name='学校', to=School, on_delete=models.DO_NOTHING, to_field='id', null=True,
+                               blank=True)
     enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
     courses = models.ManyToManyField('Course', verbose_name='课程', )
