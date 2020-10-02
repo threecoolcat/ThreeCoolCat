@@ -6,11 +6,11 @@
                     <img :src="school.cover" width="300px" height="320px" />
                 </div>
                 <div style="flex:1">
-                    <div style="color:#333;font-size:20px;line-height:32px;padding:10px">学校名称： {{school.name}}</div>
-                    <div style="color:#333;font-size:20px;line-height:32px;padding:10px;"><div class="intro" v-html="school.intro"/> </div>
-                    <div style="color:#333;font-size:16px;line-height:24px;padding:10px">学校地址： {{school.address}}</div>
-                    <div style="color:#333;font-size:16px;line-height:24px;padding:10px">联系人： {{school.linkman}}</div>
-                    <div style="color:#333;font-size:16px;line-height:24px;padding:10px">联系电话： {{school.phone}}</div>
+                    <div class="title">学校名称： {{school.name}}</div>
+                    <div class="title"><div class="intro" v-html="school.intro"/> </div>
+                    <div class="content">学校地址： {{school.address}}</div>
+                    <div class="content">联系人： {{school.linkman}}</div>
+                    <div class="content">联系电话： {{school.phone}}</div>
                     
                 </div>
             </el-col>
@@ -72,5 +72,17 @@ export default {
 }
 .school {
     background: none;
+    .title {
+        color:#333;
+        font-size:20px;
+        line-height:32px;
+        padding:10px;
+    }
+    .content {
+        color:#333;
+        font-size:16px;
+        line-height:24px;
+        padding:10px;
+    }
 }
 </style>

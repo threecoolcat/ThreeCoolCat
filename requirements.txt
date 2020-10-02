@@ -4,6 +4,5 @@ pytz==2020.1
 sqlparse==0.3.1
 pymysql==0.10.0
 djangorestframework~=3.11.1
-django-debug-toolbar~=2.2
 django-cors-headers~=3.4.0
 django-tinymce~=3.0.2

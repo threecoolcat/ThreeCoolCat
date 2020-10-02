@@ -2,17 +2,6 @@ from django.db import models
 from tinymce.models import HTMLField
 
 
-# Create your models here.
-# 学校和课程不采用多对多关系， 变成一对多的关系
-# class CourseInSchool(models.Model):
-#     """学校和课程的对应关系"""
-#     id = models.AutoField(primary_key=True)
-#     school = models.ForeignKey('school.School', on_delete=models.CASCADE, verbose_name='校区', null=True, blank=True,
-#                                related_name='course_schools', db_column='school_id')
-#     course = models.ForeignKey('school.Course', on_delete=models.CASCADE, verbose_name='课程', null=True, blank=True,
-#                                related_name='school_courses', db_column='course_id')
-
-
 class School(models.Model):
     """学校"""
     id = models.AutoField(primary_key=True)
@@ -39,6 +28,16 @@ class School(models.Model):
         return self.name
 
 
+# 教师、课程多对对关系表
+class TeacherCourses(models.Model):
+    teacher = models.ForeignKey(to='Teacher', on_delete=models.DO_NOTHING, to_field='id', db_column='teacher_id')
+    course = models.ForeignKey(to='Course', on_delete=models.DO_NOTHING, to_field='id', db_column='course_id')
+
+    class Meta:
+        managed = False
+        db_table = 'teacher_courses'
+
+
 class Course(models.Model):
     """课程"""
     id = models.AutoField(primary_key=True)
@@ -54,6 +53,9 @@ class Course(models.Model):
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
     school = models.ForeignKey(verbose_name='学校', to=School, on_delete=models.DO_NOTHING, to_field='id', null=True,
                                blank=True)
+
+    # 建立多对多关系
+    teachers = models.ManyToManyField(to='Teacher', through=TeacherCourses, )
 
     class Meta:
         managed = True
@@ -77,7 +79,7 @@ class Teacher(models.Model):
                                blank=True)
     enabled = models.BooleanField('启用', db_column='enabled', null=False, blank=False, default=True)
     order_by = models.IntegerField('排序', db_column='order_by', null=True, blank=True, default=0)
-    courses = models.ManyToManyField('Course', verbose_name='课程', )
+    courses = models.ManyToManyField('Course', verbose_name='课程')
 
     class Meta:
         managed = True

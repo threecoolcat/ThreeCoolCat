@@ -5,8 +5,6 @@
 ThreeCoolCat
 |----home 新闻、日志、友情链接
 |
-|----portal vue前端打包生成的网站前端程序
-|
 |----school 学校、教师、课程
 |
 |----shop 图书、视频
@@ -19,7 +17,9 @@ ThreeCoolCat
 |
 |----ThreeCoolCat Django项目配置文件
 |
-|----vali django-admin-theme-vali皮肤插件，重写了默认的admin模板
+|----vali django-admin-theme-vali皮肤插件
+|
+|----website vue前端程序
 ```
 运行方式
 - 事先装好python解释器，版本要求为>=3.6或

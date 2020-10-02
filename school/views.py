@@ -39,7 +39,6 @@ class CourseView(APIView):
         items = pg.paginate_queryset(courses, request, self)
         serializer = CourseSerializer(items, many=True)
         return pg.get_paginated_response(serializer.data)
-        # return Response(serializer.data)
 
     def post(self, request):
         print(request.user.username, ' is logined: ', request.user.is_authenticated)

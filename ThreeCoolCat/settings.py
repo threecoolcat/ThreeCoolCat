@@ -15,12 +15,18 @@ import os
 # 以下代码可以放在 __init__.py中
 # pymysql配置开始
 import pymysql
+from django.contrib.admin.sites import AdminSite
 # 避免出现错误：
 # django.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3.
 pymysql.version_info = (1, 4, 6, 'final', 0)
 # 启用pymysql的驱动模式， 否则不能用于django
 pymysql.install_as_MySQLdb()
 # pymysql配置结束
+
+# 修改站点的页面标题
+AdminSite.site_title = '三酷猫课堂'
+# 修改站点的名称
+AdminSite.site_header = '三酷猫课堂'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,14 +133,6 @@ REST_FRAMEWORK = {
 }
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         # 数据库引擎名称
@@ -198,8 +196,3 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/')
 
-from django.contrib.admin.sites import AdminSite
-# 修改站点的页面标题
-AdminSite.site_title = '三酷猫课堂'
-# 修改站点的名称
-AdminSite.site_header = '三酷猫课堂'

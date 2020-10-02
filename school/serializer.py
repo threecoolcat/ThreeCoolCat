@@ -9,6 +9,12 @@ class SchoolSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    # 获取教师的id和name，用于前端展示
+    teachers = serializers.SerializerMethodField()
+
+    def get_teachers(self, obj):
+        return obj.teacher_set.values('id', 'name')
+
     class Meta:
         model = Course
         fields = "__all__"
