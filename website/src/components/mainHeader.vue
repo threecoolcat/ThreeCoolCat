@@ -20,8 +20,12 @@
                     </el-submenu>
                     <el-menu-item index="/teacherList" :route="{path: '/teacherList'}">名师风采</el-menu-item>
                     <el-menu-item index="/courseList" :route="{path: '/courseList'}">课程设置</el-menu-item>
-                    <el-menu-item index="/bookList" :route="{path: '/bookList'}">精品图书</el-menu-item>
-                    <el-menu-item index="/videoList" :route="{path: '/videoList'}">视频</el-menu-item>
+                    <el-submenu index="/shop">
+                    <template slot="title">商品</template>
+                        <el-menu-item index="/bookList" :route="{path: '/bookList'}">图书</el-menu-item>
+                        <el-menu-item index="/videoList" :route="{path: '/videoList'}">视频</el-menu-item>
+                    </el-submenu>
+                    
                     <el-submenu index="articleList">
                         <template slot="title">更多内容</template>
                         <el-menu-item index="articleList" :route="{path: '/articleList', query: {type: 'news'}}">新闻</el-menu-item>

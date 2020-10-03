@@ -40,7 +40,7 @@
         <el-row type="flex" justify="center" class="grid-row even">
             <el-col class="grid-block">
                 <el-divider>推荐课程</el-divider>
-                <div v-for="course in courseList" :key="course.id" class="grid-content grid-book">
+                <div v-for="course in courseList" :key="course.id" class="grid-content grid-book" @click="clickCourse(course)">
                     <div style="line-height:160px">
                         <router-link :to="{path: '/courseDetail', query: {courseId: course.id}}">
                             <img :src="getCoverUrl(course.cover)" :alt="course.name" width="100px" />
@@ -123,6 +123,7 @@
     </div>
 </template>
 <script>
+import {log} from '@/api/home'
 import { getBooks, getVideos } from '@/api/shop'
 import { getSchools, getCourses, getTeachers} from '@/api/school'
 import { mapGetters } from 'vuex'
@@ -197,6 +198,13 @@ export default {
         },
         getCoverUrl(url) {
             return process.env.VUE_APP_BASE_API + url
+        },
+        clickCourse(course) {
+            log({
+                group: '首页',
+                sub_group: '课程列表',
+                content: '点击:'+course.name
+            })
         }
     }
 }

@@ -49,6 +49,20 @@ class FriendLinksAdmin(admin.ModelAdmin):
     ]
 
 
-
+@admin.register(OperationLog)
 class OperationLogAdmin(admin.ModelAdmin):
-    list_display = {'fields': ('', '')}
+    list_display = ('group', 'sub_group', 'content', 'create_time', 'create_user', 'user_agent')
+    list_filter = ('group', 'sub_group')
+    search_fields = ('group', 'sub_group', 'content', 'create_user')
+    
+    # 数据来源于页面操作，后台禁用增加按钮
+    def has_add_permission(self, request):
+        return False
+
+    # 数据来源于页面操作，后台禁用编辑按钮
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    # 数据来源于页面操作，后台禁用删除按钮
+    def has_delete_permission(self, request, obj=None):
+        return False

@@ -7,9 +7,9 @@ from rest_framework.parsers import JSONParser
 
 from django.http.response import JsonResponse
 from django.views.generic import TemplateView
-
+from django.views.decorators.csrf import csrf_exempt
 from .serializer import HotNewsSerializer, ActiveNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer, OperationLogSerializer
-from .models import HotNews,ActiveNews, TechnicalArticle, FriendLinks, OperationLog
+from .models import HotNews, ActiveNews, TechnicalArticle, FriendLinks, OperationLog
 from school.models import Teacher, Course
 from shop.models import Book, Video
 # Create your views here.
@@ -99,12 +99,16 @@ def page_not_found(request, exception=None, template_name='404.html'):
 
 
 class OperationLogView(APIView):
-
     def post(self, request):
-        data = JSONParser().parse(request)
+        data = request.data
+        # data['user_agent'] = request.stream.META['HTTP_USER_AGENT']
         serializer = OperationLogSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({'success': 1})
         else:
             return JsonResponse({'success': 0})
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super(OperationLogView, self).dispatch(request, *args, **kwargs)
