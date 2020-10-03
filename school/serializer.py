@@ -22,8 +22,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class TeacherSerializer(serializers.ModelSerializer):
     courses = serializers.SerializerMethodField()
+
     def get_courses(self, obj):
         return obj.course_set.values()
+
     class Meta:
         model = Teacher
         fields = "__all__"

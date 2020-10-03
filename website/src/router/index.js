@@ -10,70 +10,85 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        title: '首页',
         name: 'home',
         component: () => import('@/views/home'),
+        meta: {
+          title: '首页',
+        }
       },
       {
-        path: 'hotNewList',
-        title: '新闻列表',
-        name: 'hotNewList',
-        component: () => import('@/views/home/hotNewList'),
+        path: 'articleList',
+        name: 'articleList',
+        component: () => import('@/views/home/articleList'),
+        meta: {
+          title: '文章列表',
+        }
       },
       {
-        path: 'hotNewDetail',
-        title: '新闻详情',
-        name: 'hotNewDetail',
-        component: () => import('@/views/home/hotNewDetail'),
+        path: 'article',
+        name: 'article',
+        component: () => import('@/views/home/article'),
+        meta: {
+          title: '文章详情',
+        }
       },
       {
         path: 'schoolList',
-        title: '课程列表',
-        icon: '',
         name: 'schoolList',
         component: () => import('@/views/school/schoolList'),
+        meta: {
+          title: '课程列表',
+        }
       },
       {
         path: 'courseList',
-        title: '课程列表',
         name: 'courseList',
         component: () => import('@/views/school/courseList'),
+        meta: {
+          title: '课程列表',
+        }
       },
       {
         path: 'courseDetail',
-        title: '课程详情',
         name: 'courseDetail',
         component: () => import('@/views/school/courseDetail'),
-        hidden: true,
+        meta: {
+          title: '课程详情',
+        }
         
       },
       {
         path: 'teacherList',
-        title: '教师列表',
-        icon: '',
         name: 'teacherList',
         component: () => import('@/views/school/teacherList'),
-        hidden: false,
+        meta: {
+          title: '教师列表',
+        }
         
       },
       {
         path: 'teacherDetail',
-        title: '教师详情',
-        icon: '',
         name: 'teacherDetail',
         component: () => import('@/views/school/teacherDetail'),
+        meta: {
+          title: '教师详情',
+        }
       },
       {
         path: 'bookList',
-        title: '图书列列',
         name: 'bookList',
         component: () => import('@/views/shop/bookList'),
+        meta: {
+          title: '图书列表',
+        }
       },
       {
         path: 'bookDetail',
-        title: '图书详情',
         name: 'bookDetail',
         component: () => import('@/views/shop/bookDetail'),
+        meta: {
+          title: '图书详情',
+        }
       },
       
     ]

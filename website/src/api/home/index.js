@@ -9,3 +9,14 @@ export function friendLinks() {
         method: 'get'
     })
 }
+
+/**
+ * 文章接口
+ */
+export function getArticles(type, params) {
+    return request({
+        url: '/home/api/article/'+type,
+        method: 'get',
+        params
+    })
+}

@@ -70,7 +70,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .grid-row {
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     .grid-block {
     background-color: #eee;
     }

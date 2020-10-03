@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import HotNews, TechnicalArticle, FriendLinks, OperationLog
+from .models import HotNews, ActiveNews, TechnicalArticle, FriendLinks, OperationLog
 
 
 class HotNewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotNews
+        fields = "__all__"
+
+
+class ActiveNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActiveNews
         fields = "__all__"
 
 

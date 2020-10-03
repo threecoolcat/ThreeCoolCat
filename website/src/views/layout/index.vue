@@ -3,7 +3,16 @@
   <el-header height="62px">
     <main-header/>
   </el-header>
+  
   <el-main>
+    <el-row type="flex" justify="center" v-if="$route.path != '/'">
+      <el-col style="width:1080px">
+          <el-breadcrumb separator="/" style="padding: 10px;">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item >{{ $route.meta.title }}</el-breadcrumb-item>
+          </el-breadcrumb>
+      </el-col>
+    </el-row>
     <router-view></router-view>
     <main-bottom/>
   </el-main>
@@ -41,7 +50,6 @@ export default {
 
   // 模板编译挂载之后
   mounted () {
-   
   },
 
   // 组件更新前

@@ -8,8 +8,8 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.views.generic import TemplateView
 
-from .serializer import HotNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer, OperationLogSerializer
-from .models import HotNews, TechnicalArticle, FriendLinks, OperationLog
+from .serializer import HotNewsSerializer, ActiveNewsSerializer, TechnicalArticleSerializer, FriendLinksSerializer, OperationLogSerializer
+from .models import HotNews,ActiveNews, TechnicalArticle, FriendLinks, OperationLog
 from school.models import Teacher, Course
 from shop.models import Book, Video
 # Create your views here.
@@ -49,6 +49,7 @@ class DashboardView(TemplateView):
         return context
 
 
+# 根据文章类型， 返回不同的数据
 class ArticlesView(APIView):
     def get(self, request, *args, **kwargs):
         pg = ThePager()
@@ -56,6 +57,10 @@ class ArticlesView(APIView):
             articles = HotNews.objects.all()
             items = pg.paginate_queryset(articles, request, self)
             serializer = HotNewsSerializer(items, many=True)
+        elif kwargs['type'] and kwargs['type'] == 'active':
+            articles = ActiveNews.objects.all()
+            items = pg.paginate_queryset(articles, request, self)
+            serializer = ActiveNewsSerializer(items, many=True)
         elif kwargs['type'] and kwargs['type'] == 'tech':
             articles = TechnicalArticle.objects.all()
             items = pg.paginate_queryset(articles, request, self)

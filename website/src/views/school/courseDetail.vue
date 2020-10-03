@@ -16,13 +16,13 @@
         </el-row>
         <el-row type="flex" class="grid-row" justify="center">
             <el-col class="grid-block">
-                <div style="width:100%;text-align:center;font-size:18px;line-height:36px;border-bottom:1px solid #ddd">课程介绍</div>
+                <div class="block-title">课程介绍</div>
                 <div style="padding:10px" v-html="course.intro" />
             </el-col>
         </el-row>
         <el-row type="flex" class="grid-row" justify="center">
             <el-col class="grid-block">
-                <div style="width:100%;text-align:center;font-size:18px;line-height:36px;border-bottom:1px solid #ddd">主讲教师</div>
+                <div class="block-title">主讲教师</div>
                 <div style="display:flex;width:100%">
                     <div v-for="teacher in course.teachers" :key="teacher.id" style="width:120px;height:140px; margin:10px 20px;border-right:1px solid #ddd">
                         <img :src="'/files/' + teacher.photo" width="120px" />
@@ -67,7 +67,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .grid-row {
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     .grid-block {
     background-color: #eee;
     }

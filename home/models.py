@@ -52,6 +52,23 @@ class TechnicalArticle(Article):
     class Meta:
         managed = True
         db_table = 'technical_article'
+        verbose_name = '技术文章'
+        verbose_name_plural = '技术文章管理'
+
+    def __str__(self):
+        return self.title
+
+
+class ActiveNews(Article):
+    author = models.CharField('作者', db_column='author', null=True, blank=True, default='', max_length=255)
+    link_url = models.CharField('原文链接', db_column='url', null=False, blank=False, default='', max_length=255)
+    subtitle = models.CharField('副标题', db_column='subtitle', null=False, blank=False, default='', max_length=255)
+    cover = models.ImageField('封面', db_column='cover', upload_to='techarticle', null=True, blank=True)
+    content = HTMLField('内容', db_column='content')
+
+    class Meta:
+        managed = True
+        db_table = 'active_news'
         verbose_name = '活动'
         verbose_name_plural = '活动管理'
 

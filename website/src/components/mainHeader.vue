@@ -21,13 +21,17 @@
                     <el-menu-item index="/teacherList" :route="{path: '/teacherList'}">名师风采</el-menu-item>
                     <el-menu-item index="/courseList" :route="{path: '/courseList'}">课程设置</el-menu-item>
                     <el-menu-item index="/bookList" :route="{path: '/bookList'}">精品图书</el-menu-item>
-                    <el-menu-item index="/hotNewList" :route="{path: '/hotNewList'}">热点资讯</el-menu-item>
+                    <el-submenu index="/article">
+                        <template slot="title">更多内容</template>
+                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'news'}}">新闻</el-menu-item>
+                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'active'}}">活动</el-menu-item>
+                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'tech'}}">技术文章</el-menu-item>
+                    </el-submenu>
                 </el-menu>
                 <div style="">
                     <div><a style="color:#17BA7A" href="/dashboard/">登录</a></div>
                 </div>
             </div>
-            <div style="flex:1"></div>
         </el-row>
     </div>
 </template>
