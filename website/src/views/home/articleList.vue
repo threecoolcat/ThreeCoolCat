@@ -9,13 +9,13 @@
                     >
                         <el-menu-item index="news" @click="handleClick('news')">新闻</el-menu-item>
                         <el-menu-item index="active" @click="handleClick('active')">活动</el-menu-item>
-                        <el-menu-item index="tech" @click="handleClick('tech')">技术文章</el-menu-item>
+                        <!-- <el-menu-item index="tech" @click="handleClick('tech')">技术文章</el-menu-item> -->
                     </el-menu>
                 </el-col>
                 <el-col :span="18">
                     <div v-if="articleList.length > 0">
                         <div v-for="article in articleList" :key="article.id" style="padding:10px">    
-                            <router-link :to="{path: '/article', query: {id: article.id}}">{{article.title}}</router-link>
+                            <router-link :to="{path: '/article', query: {id: article.id, type: activeMenu}}">{{article.title}}</router-link>
                         </div>
                     </div>
                     <div v-else style="padding:10px">
@@ -55,16 +55,24 @@ export default {
     created() {
         this.getArticles()
     },
+    watch: {
+        '$route.query.type' (v) {
+            this.activeMenu = v;
+            this.getArticles()
+        }
+    },
     methods: {
         getArticles() {
+            console.log(this.activeMenu)
             getArticles(this.activeMenu, {page: this.currentPage, size: this.pageSize}).then(res=>{
                 this.articleList = res.results;
+                this.total = res.count;
             })
         },
         handleClick(type) {
             // 使用代码方式切换路由
             this.activeMenu = type
-            this.getArticles()
+            
             this.$router.push({path: 'articleList', query: {type}})
         },
         handleSizeChange(v) {

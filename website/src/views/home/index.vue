@@ -28,11 +28,11 @@
                     <img :src="school.cover" width="300px" height="320px" />
                 </div>
                 <div style="flex:1">
-                    <div style="color:#eee;font-size:20px;line-height:32px;padding:10px">学校名称： {{school.name}}</div>
-                    <div style="color:#eee;font-size:20px;line-height:32px;padding:10px;"><div class="intro" v-html="school.intro"/> </div>
-                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">学校地址： {{school.address}}</div>
-                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">联系人： {{school.linkman}}</div>
-                    <div style="color:#eee;font-size:16px;line-height:24px;padding:10px">联系电话： {{school.phone}}</div>
+                    <div style="color:#eee;font-size:18px;line-height:32px;padding:10px">学校名称： {{school.name}}</div>
+                    <div style="color:#eee;font-size:18px;line-height:32px;padding:10px;"><div class="intro" v-html="school.intro"/> </div>
+                    <div style="color:#eee;font-size:14px;line-height:24px;padding:10px">学校地址： {{school.address}}</div>
+                    <div style="color:#eee;font-size:14px;line-height:24px;padding:10px">联系人： {{school.linkman}}</div>
+                    <div style="color:#eee;font-size:14px;line-height:24px;padding:10px">联系电话： {{school.phone}}</div>
                     
                 </div>
             </el-col>

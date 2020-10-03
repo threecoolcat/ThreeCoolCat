@@ -1,7 +1,7 @@
 <template>
     <div class="mainHeader">
-        <el-row type="flex" align="middle">
-            <div style="flex:1"/>
+        <el-row type="flex" justify="center">
+            <!-- <div style="flex:1"/> -->
             <div style="width:1080px;display:flex;justify-content:space-around">
                 <div class="title">
                     <span>三酷猫教育</span>
@@ -21,11 +21,11 @@
                     <el-menu-item index="/teacherList" :route="{path: '/teacherList'}">名师风采</el-menu-item>
                     <el-menu-item index="/courseList" :route="{path: '/courseList'}">课程设置</el-menu-item>
                     <el-menu-item index="/bookList" :route="{path: '/bookList'}">精品图书</el-menu-item>
-                    <el-submenu index="/article">
+                    <el-submenu index="articleList">
                         <template slot="title">更多内容</template>
-                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'news'}}">新闻</el-menu-item>
-                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'active'}}">活动</el-menu-item>
-                        <el-menu-item index="/article" :route="{path: '/articleList', query: {type: 'tech'}}">技术文章</el-menu-item>
+                        <el-menu-item index="articleList" :route="{path: '/articleList', query: {type: 'news'}}">新闻</el-menu-item>
+                        <el-menu-item index="articleList" :route="{path: '/articleList', query: {type: 'active'}}">活动</el-menu-item>
+                        <!-- <el-menu-item index="articleList" :route="{path: '/articleList', query: {type: 'tech'}}">技术文章</el-menu-item> -->
                     </el-submenu>
                 </el-menu>
                 <div style="">

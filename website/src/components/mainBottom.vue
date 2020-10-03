@@ -21,11 +21,11 @@
                 <el-col :span="6">
                     <div style="margin-top: 10px">咨询热线</div>
                     <div style="margin-top: 10px">
-                        186-0042-4201
+                        1xxx-xxxx-xxxx
                     </div>
                     <div style="margin-top: 10px">联系邮箱</div>
                     <div style="margin-top: 10px">
-                        cnanyi@gmail.com
+                        xxxxx@xxxx.xxx
                     </div>
                     <div style="margin-top: 10px">公司地址</div>
                     <div style="margin-top: 10px">

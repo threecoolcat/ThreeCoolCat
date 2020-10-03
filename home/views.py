@@ -55,6 +55,7 @@ class ArticlesView(APIView):
         pg = ThePager()
         if kwargs['type'] and kwargs['type'] == 'news':
             articles = HotNews.objects.all()
+
             items = pg.paginate_queryset(articles, request, self)
             serializer = HotNewsSerializer(items, many=True)
         elif kwargs['type'] and kwargs['type'] == 'active':
@@ -67,6 +68,8 @@ class ArticlesView(APIView):
             serializer = TechnicalArticleSerializer(items, many=True)
         else:
             return JsonResponse({'success': 0, 'msg': 'wrong type', 'results': []})
+        if 'id' in request.query_params:
+            articles = articles.filter(id=request.query_params['id'])
         return pg.get_paginated_response(serializer.data)
 
 
