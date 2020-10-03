@@ -65,7 +65,7 @@
                 <div v-for="teacher in teacherList" :key="teacher.id" class="grid-content grid-book">
                     <div style="line-height:160px">
                         <router-link :to="{path: '/teacherDetail', query: {teacherId: teacher.id}}">
-                            <img :src="getCoverUrl(teacher.cover)" :alt="teacher.name" width="100px" />
+                            <img :src="teacher.photo" :alt="teacher.name" height="160px" />
                         </router-link>
                     </div>
                     <div>
