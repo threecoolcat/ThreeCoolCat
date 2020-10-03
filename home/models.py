@@ -98,7 +98,7 @@ class OperationLog(models.Model):
     content = models.CharField('内容', db_column='content', null=False, blank=False, default='', max_length=255)
     create_time = models.DateTimeField('创建时间', db_column='create_time', auto_now_add=True)
     create_user = models.CharField('用户', db_column='create_user', null=False, blank=False, default='', max_length=100)
-    user_agent = models.CharField('UA', db_column='user_agent', null=False, blank=False, default='', max_length=100)
+    user_agent = models.CharField('UA', db_column='user_agent', null=False, blank=False, default='', max_length=255)
 
     class Meta:
         managed = True

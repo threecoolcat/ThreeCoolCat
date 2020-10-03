@@ -1,27 +1,5 @@
 <template>
     <div>
-        <!-- <div class="banner">
-            <div style="width:1080px;position: relative;">
-                <div class="title1">
-                    Python3.8
-                </div>
-                <div class="title2">
-                    Django 3
-                </div>
-                <div class="title5">
-                    Admin
-                </div>
-                <div class="title3">
-                    View
-                </div>
-                <div class="title4">
-                    Template
-                </div>
-                <div class="title6">
-                    Vue
-                </div>
-            </div>
-        </div> -->
         <el-row type="flex" justify="center" class="grid-row school">
             <el-col class="grid-block">
                 <div style="padding:0 20px">
@@ -40,7 +18,7 @@
         <el-row type="flex" justify="center" class="grid-row even">
             <el-col class="grid-block">
                 <el-divider>推荐课程</el-divider>
-                <div v-for="course in courseList" :key="course.id" class="grid-content grid-book" @click="clickCourse(course)">
+                <div v-for="course in courseList" :key="course.id" class="grid-content grid-book" @click="log('首页', '课程模块', '点击:' + course.name)">
                     <div style="line-height:160px">
                         <router-link :to="{path: '/courseDetail', query: {courseId: course.id}}">
                             <img :src="getCoverUrl(course.cover)" :alt="course.name" width="100px" />
@@ -53,7 +31,7 @@
                     </div>
                 </div>
                 
-                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666">
+                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666" @click="log('首页', '课程模块', '点击:更多')">
                     <router-link to="/CourseList">更多</router-link>
                 </div>
             </el-col>
@@ -62,7 +40,7 @@
             
             <el-col class="grid-block">
                 <el-divider>名师风采</el-divider>
-                <div v-for="teacher in teacherList" :key="teacher.id" class="grid-content grid-book">
+                <div v-for="teacher in teacherList" :key="teacher.id" class="grid-content grid-book" @click="log('首页', '教师模块', '点击:' + teacher.name)">
                     <div style="line-height:160px">
                         <router-link :to="{path: '/teacherDetail', query: {teacherId: teacher.id}}">
                             <img :src="teacher.photo" :alt="teacher.name" height="160px" />
@@ -73,15 +51,15 @@
                     </div>
                 </div>
                 
-                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666">
+                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666" @click="log('首页', '教师模块', '点击:更多')">
                     <router-link to="/teacherList">更多</router-link>
                 </div>
             </el-col>
         </el-row>
-        <el-row type="flex" justify="center" class="grid-row odd">
+        <el-row type="flex" justify="center" class="grid-row odd" >
             <el-col class="grid-block">
                  <el-divider class="odd">精品图书</el-divider>
-                <div v-for="book in bookList" :key="book.id" class="grid-content grid-book">
+                <div v-for="book in bookList" :key="book.id" class="grid-content grid-book" @click="log('首页', '图书模块', '点击:' + book.name)">
                     <div style="line-height:160px">
                         <router-link :to="{path: '/bookDetail', query: {bookId: book.id}}">
                             <img :src="getCoverUrl(book.cover)" :alt="book.name" width="100px" />
@@ -94,7 +72,7 @@
                     </div>
                 </div>
                 
-                <div class="grid-content grid-book" style="font-size:14px; line-height:160px;text-align:center;color:#666">
+                <div class="grid-content grid-book" style="font-size:14px; line-height:160px;text-align:center;color:#666" @click="log('首页', '图书模块', '点击:更多')">
                     <router-link to="/bookList">更多</router-link>
                 </div>
             </el-col>
@@ -103,9 +81,9 @@
             
             <el-col class="grid-block">
                 <el-divider>线上视频</el-divider>
-                <div v-for="video in videoList" :key="video.id" class="grid-content grid-book">
+                <div v-for="video in videoList" :key="video.id" class="grid-content grid-book" @click="log('首页', '视频模块', '点击:' + video.name)">
                     <div style="line-height:160px">
-                        <router-link :to="{path: '/Detail', query: {teacherId: video.id}}">
+                        <router-link :to="{path: '/videoDetail', query: {id: video.id}}">
                             <img :src="getCoverUrl(video.cover)" :alt="video.name" width="100px" />
                         </router-link>
                     </div>
@@ -114,7 +92,7 @@
                     </div>
                 </div>
                 
-                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666">
+                <div class="grid-content grid-book" style="font-size:20px; line-height:160px;text-align:center;color:#666" @click="log('首页', '视频模块', '点击:更多')">
                     <router-link to="/videoList">更多</router-link>
                 </div>
             </el-col>
@@ -199,11 +177,11 @@ export default {
         getCoverUrl(url) {
             return process.env.VUE_APP_BASE_API + url
         },
-        clickCourse(course) {
+        log(group, sub_group, content) {
             log({
-                group: '首页',
-                sub_group: '课程列表',
-                content: '点击:'+course.name
+                group: group,
+                sub_group: sub_group,
+                content: content
             })
         }
     }

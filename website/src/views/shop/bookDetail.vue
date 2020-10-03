@@ -6,9 +6,7 @@
                     <img :src="book.cover" width="160px" height="200px" />
                 </div>
                 <div style="flex:1">
-                    <router-link :to="{path: '/bookDetail', query: {id: book.id}}">
-                        <div class="title">图书名称： 《{{book.name}}》</div>
-                    </router-link>
+                    <div class="title">图书名称： 《{{book.name}}》</div>
                     <div class="title">副标题： {{book.sub_title}}</div>
                     <div class="content">作者： {{book.author}}</div>
                 </div>

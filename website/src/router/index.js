@@ -90,7 +90,22 @@ export const constantRoutes = [
           title: '图书详情',
         }
       },
-      
+      {
+        path: 'videoList',
+        name: 'videoList',
+        component: () => import('@/views/shop/videoList'),
+        meta: {
+          title: '视频列表',
+        }
+      },
+      {
+        path: 'videoDetail',
+        name: 'videoDetail',
+        component: () => import('@/views/shop/videoDetail'),
+        meta: {
+          title: '视频详情',
+        }
+      },
     ]
   },
   

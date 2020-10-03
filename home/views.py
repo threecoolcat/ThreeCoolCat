@@ -101,7 +101,7 @@ def page_not_found(request, exception=None, template_name='404.html'):
 class OperationLogView(APIView):
     def post(self, request):
         data = request.data
-        # data['user_agent'] = request.stream.META['HTTP_USER_AGENT']
+        data['user_agent'] = request.stream.META['HTTP_USER_AGENT']
         serializer = OperationLogSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
