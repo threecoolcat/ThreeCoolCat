@@ -12,8 +12,10 @@ from .serializer import HotNewsSerializer, ActiveNewsSerializer, TechnicalArticl
 from .models import HotNews, ActiveNews, TechnicalArticle, FriendLinks, OperationLog
 from school.models import Teacher, Course
 from shop.models import Book, Video
+from django.db.models import Count
+from datetime import datetime, date, timedelta
 # Create your views here.
-
+from django.db import connection
 
 # 主页视图，计算基础统计信息
 class DashboardView(TemplateView):
@@ -44,6 +46,48 @@ class DashboardView(TemplateView):
                       "link": "/admin/shop/video/"}]
         # 将拼好的对象返回给页面， 页面模板可以通过 icons 访问该对象
         context['icons'] = top_icons
+        # 近5天的日期
+        dates = []
+        data1 = []
+        # for i in range(5):
+        #     yesterday = (date.today() + timedelta(days=-i)).strftime("%Y-%m-%d")
+        #     dates.insert(0, yesterday)
+        # begin = date.today() + timedelta(days=-5)
+        # end = date.today()
+        # ol = OperationLog.objects.filter(create_time__range=[begin, end])
+        with connection.cursor() as cursor:
+            cursor.execute("""select  date_format(create_time, '%Y-%m-%d') date, count(id) cnt from operation_log group by date_format(create_time, '%Y-%m-%d')""")
+            results = cursor.fetchall()
+
+        for r in results:
+            dates.append(r[0])
+            data1.append(r[1])
+
+        charts = [{
+            "name": "linechart1", "title": "模块点击次数", "type": "Line",
+            "labels": dates,
+            "datasets": [
+                {
+                    "label": "dataset 1",
+                    "fillColor": "rgba(220,220,220,0.2)",
+                    "strokeColor": "rgba(220,220,220,1)",
+                    "pointColor": "rgba(220,220,220,1)",
+                    "pointStrokeColor": "#fff",
+                    "pointHighlightFill": "#fff",
+                    "pointHighlightStroke": "rgba(220,220,220,1)",
+                    "data": data1
+                }
+            ]
+        }, {
+            "name": "piechart1", "title": "网站内容分布", "type": "Pie",
+            "datasets": [
+                {"value": Course.objects.filter(enabled=True, status=True).count(), "color": "#46BFBD", "highlight": "#5AD3D1", "label": "课程"},
+                {"value": Book.objects.filter(enabled=True).count(), "color": "#77464A", "highlight": "#7F5A5E", "label": "图书"},
+                {"value": Video.objects.filter(enabled=True).count(), "color": "#F7464A", "highlight": "#FF5A5E", "label": "视频"},
+                {"value": Teacher.objects.filter(enabled=True).count(), "color": "#5A5F5E", "highlight": "#5A5F5E", "label": "教师"},
+            ]
+        }]
+        context['charts'] = charts
         # 页面模板中，该变量用来控制用户菜单，由admin管理的页面包含此变量
         context['has_permission'] = True
         return context
