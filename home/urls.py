@@ -1,9 +1,6 @@
-from django.conf.urls import url
 from django.urls import path
 from .views import ArticlesView, FriendLinksView, OperationLogView
 
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     # 传递命名参数type，类型为str，传递给视图，视图中用kwargs接收
