@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout'
+import Weixin from '@/views/weixin'
 Vue.use(Router)
 
 export const constantRoutes = [
@@ -106,9 +107,17 @@ export const constantRoutes = [
           title: '视频详情',
         }
       },
+      
     ]
   },
-  
+  {
+    path: '/weixin',
+    name: 'weixin',
+    component: Weixin,
+    meta: {
+      title: '微信报名页面',
+    }
+  },
 ]
 export default new Router({
   routes: constantRoutes
