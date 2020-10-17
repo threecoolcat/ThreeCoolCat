@@ -33,7 +33,7 @@
     </van-cell-group>  
     <van-cell-group>
       <van-field v-model="form.name" label="姓名" placeholder="请输入姓名" :rules="[{ required: true, message: '请填写姓名' }]"/>
-      <van-field v-model="form.phone" label="手机号" placeholder="请输入手机号"  :rules="[{ required: true, message: '请填写手机号' }]"/>
+      <!-- <van-field v-model="form.phone" label="手机号" placeholder="请输入手机号"  :rules="[{ required: true, message: '请填写手机号' }]"/> -->
       <van-field type="textarea" v-model="form.content" label="咨询内容" placeholder="请输入咨询内容" />
     </van-cell-group>
     <div style="margin: 16px;">
@@ -45,7 +45,7 @@
 </div>
 </template>
 <script>
-import { getSchools, getCourses, enroll } from '@/api/school'
+import { getSchools, getCourses } from '@/api/school'
 export default {
   data() {
     return {
@@ -55,7 +55,6 @@ export default {
       showCoursePicker: false,
       form: {
           name: '',
-          phone: '',
           course: '',
           school: '',
           schoolName: '',
@@ -70,15 +69,7 @@ export default {
     onClickLeft() {},
     onClickRight() {},
     submit() {
-      // 表单校验
-      enroll(this.form).then(resp=>{
-          if (resp.success === 1) {
-              this.$dialog.alert({
-                title: '申请成功',
-                message: '添加报名咨询信息成功， 请等待老师联系您！',
-              })
-          }
-      })
+      // 实现提交数据功能
     },
     onFailed() { 
 
@@ -90,13 +81,11 @@ export default {
         })
     },
     onConfirmSchool(v) {
-      // this.form.school = v;
       this.form.school = v.id
       this.form.schoolName = v.name
       this.showSchoolPicker = false;
     },
     onConfirmCourse(v) {
-      // this.form.school = v;
       this.form.course = v.id
       this.form.courseName = v.name
       this.showCoursePicker = false;
