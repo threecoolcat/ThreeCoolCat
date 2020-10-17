@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/views/layout'
-import Weixin from '@/views/weixin'
+import Enroll from '@/components/enroll_h5'
 Vue.use(Router)
 
 export const constantRoutes = [
@@ -111,9 +111,9 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/weixin',
-    name: 'weixin',
-    component: Weixin,
+    path: '/Enroll',
+    name: 'Enroll',
+    component: Enroll,
     meta: {
       title: '微信报名页面',
     }
