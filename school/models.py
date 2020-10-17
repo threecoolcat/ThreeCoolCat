@@ -90,3 +90,23 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# 报名表单数据
+class Enroll(models.Model):
+    id = models.AutoField(primary_key=True)
+    school = models.ForeignKey(School, verbose_name='学校', on_delete=models.DO_NOTHING)
+    course = models.ForeignKey(Course, verbose_name='课程', on_delete=models.DO_NOTHING)
+    name = models.CharField('姓名', max_length=64)
+    phone = models.CharField('手机号', max_length=20)
+    content = models.CharField('内容', max_length=500, blank=True, default=True)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        managed = True
+        db_table = 'school_enroll'
+        verbose_name = '报名咨询'
+        verbose_name_plural = '报名咨询管理'

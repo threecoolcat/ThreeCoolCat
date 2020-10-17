@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import School, Course, Teacher
-from .serializer import CourseSerializer, SchoolSerializer, TeacherSerializer
+from .serializer import CourseSerializer, SchoolSerializer, TeacherSerializer, EnrollSerializer
 from home.utils import ThePager
 # Create your views here.
 
@@ -67,3 +67,13 @@ class TeacherView(APIView):
         items = pg.paginate_queryset(teachers, request, self)
         serializer = TeacherSerializer(items, many=True)
         return pg.get_paginated_response(serializer.data)
+
+
+class EnrollView(APIView):
+    def post(self, request):
+        enroll = EnrollSerializer(data=request.data)
+        if enroll.is_valid():
+            enroll.save()
+            return JsonResponse({'success': 1})
+        else:
+            return JsonResponse({'success': 0})

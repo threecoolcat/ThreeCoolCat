@@ -16,7 +16,7 @@
     <router-view></router-view>
     <main-bottom/>
   </el-main>
-  
+  <enroll />
 </el-container>
 
 </template>
@@ -24,10 +24,11 @@
 
 import mainHeader from '@/components/mainHeader'
 import mainBottom from '@/components/mainBottom'
+import enroll from '@/components/enroll'
 
 export default {
   name: 'Layout',
-  components: {mainHeader,mainBottom},
+  components: {mainHeader,mainBottom, enroll},
   props: { },
   data () {
     return {

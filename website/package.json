@@ -16,6 +16,7 @@
     "element-ui": "^2.13.1",
     "es6-promise": "^4.2.8",
     "js-cookie": "^2.2.1",
+    "vant": "^2.10.9",
     "vue": "^2.6.10",
     "vue-cookie": "^1.1.4",
     "vue-echarts": "^4.0.2",

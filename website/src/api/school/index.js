@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+import Cookie from 'js-cookie'
 /**
  * 校区后台接口
  */
@@ -29,5 +29,17 @@ export function getTeachers(params) {
         url: '/school/api/teachers/',
         method: 'get',
         params
+    })
+}
+
+/**
+ * 报名接口
+ */
+export function enroll(data) {
+    return request({
+        headers: {'X-CSRFtoken': Cookie.get('csrftoken')},
+        url: '/school/api/enroll/',
+        method: 'post',
+        data
     })
 }

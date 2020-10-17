@@ -2,23 +2,29 @@
     <div class="mainBottom">
         <div style="width:1080px">
             <el-row>
-                <el-col :span="6">
+                <el-col :span="5">
                     <div style="margin-top: 10px">友情链接</div>
                     <div v-for="item in friendLinks" :key="item.id" style="margin-top: 10px">
                         <a :href="item.url" style="color:#fff" target="_blank">{{ item.title}}</a></div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="5">
                     <div style="margin-top: 10px">服务协议</div>
                     <div style="margin-top: 10px">合作沟通</div>
                     <div style="margin-top: 10px">关于我们</div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="4">
                     <div style="margin-top: 10px">主页</div>
                     <div style="background-color:#ccc;width:130px;height:130px;margin-top:10px">
                         <img src="static/ThreeCoolCat.png" width="130px" height="130px"/>
                     </div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="4">
+                    <div style="margin-top: 10px">公众号</div>
+                    <div style="background-color:#ccc;width:130px;height:130px;margin-top:10px">
+                        <img src="static/qrcode_for_gh_bdce6bcfb788_258.jpg" width="130px" height="130px"/>
+                    </div>
+                </el-col>
+                <el-col :span="5">
                     <div style="margin-top: 10px">咨询热线</div>
                     <div style="margin-top: 10px">
                         1xxx-xxxx-xxxx

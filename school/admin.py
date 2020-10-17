@@ -1,7 +1,7 @@
 from django.contrib import admin
 # from django.utils.safestring import mark_safe
 from django.utils.html import format_html
-from .models import School, Course, Teacher
+from .models import School, Course, Teacher, Enroll
 from .forms import CourseForm
 from django.template import loader
 from django.utils.safestring import mark_safe
@@ -96,3 +96,21 @@ class TeacherAdmin(admin.ModelAdmin):
         ('管理信息', {'fields': ('enabled', 'order_by')}),
 
     ]
+
+@admin.register(Enroll)
+class EnrollAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'school', 'course', 'create_time')
+    search_fields = ('name', 'phone')
+    list_filter = ('school', 'course')
+    def has_add_permission(self, request):
+        return False
+
+        # 数据来源于页面操作，后台禁用编辑按钮
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+        # 数据来源于页面操作，后台禁用删除按钮
+
+    def has_delete_permission(self, request, obj=None):
+        return False
