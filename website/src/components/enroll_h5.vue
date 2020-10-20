@@ -45,7 +45,7 @@
 </div>
 </template>
 <script>
-import { getSchools, getCourses } from '@/api/school'
+import { getSchools, getCourses, enroll } from '@/api/school'
 export default {
   data() {
     return {
@@ -55,6 +55,7 @@ export default {
       showCoursePicker: false,
       form: {
           name: '',
+          phone: '',
           course: '',
           school: '',
           schoolName: '',
@@ -69,7 +70,14 @@ export default {
     onClickLeft() {},
     onClickRight() {},
     submit() {
-      // 实现提交数据功能
+      enroll(this.form).then(resp=>{
+          if (resp.success === 1) {
+              this.$dialog.alert({
+                title: '申请成功',
+                message: '添加报名咨询信息成功， 请等待老师联系您！',
+              })
+          }
+      })
     },
     onFailed() { 
 
