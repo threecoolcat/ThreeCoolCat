@@ -11,7 +11,7 @@ export function getSchools(params) {
     })
 }
 /**
- * 精品课程后台接口
+ * 校区栏目后台接口
  */
 export function getCourses(params) {
     return request({

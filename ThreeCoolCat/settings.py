@@ -79,7 +79,6 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8010',  # 本机调试地址
 )
-X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # vali组件设置
 VALI_CONFIG = {
@@ -142,7 +141,8 @@ DATABASES = {
         # 用户名
         'USER': 'root',
         # 密码
-        'PASSWORD': 'www.isoftstone.CoM',
+        'PASSWORD': 'cats123.',
+        #'PASSWORD': 'www.isoftstone.CoM',
         # 服务器地址
         'HOST': '127.0.0.1',
     }
@@ -165,6 +165,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# SESSION_COOKIE_SECURE=True
+# CSRF_COOKIE_SECURE=True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

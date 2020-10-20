@@ -90,7 +90,6 @@ export default {
                  this.schools = resp.results
                  this.form.school = this.schools[0].id
                  this.getCourses()
-                 
              })
          }
      }
