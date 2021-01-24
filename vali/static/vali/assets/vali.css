@@ -33,7 +33,7 @@ padding: 8px 14px;
 
 }
 #changelist .actions label {
-    vertical-align: middle; vertical-align:-webkit-baseline-middle; vertical-align:-moz-middle-with-baseline;
+    vertical-align: top!important;
 }
 #changelist .actions label select{
    height:30px!important;
