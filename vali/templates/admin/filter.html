@@ -1,14 +1,6 @@
 {% load i18n %}
 
-{#<div class="col mb-3"> #}
-{#    <div class="card-title"><h6>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h6></div> #}
-{#    <div class="list-group list-group-flush"> #}
-{#    {% for choice in choices %} #}
-{#        <a class="list-group-item list-group-item-action{% if choice.selected %} active text-white{% endif %}"  href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">{{ choice.display }}</a> #}
-{#    {% endfor %} #}
-{#    </div> #}
-{#</div> #}
-<div class="col mb-3">
+<div class="col" style="min-width:25%;max-width:25%">
     <div class="card-title"><h6>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h6></div>
     <select class="form-control" onchange="window.location.href=$(this).val()">
     {% for choice in choices %}

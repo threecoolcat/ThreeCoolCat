@@ -38,7 +38,7 @@
 {% endif %}
 
 {% block object-tools %}
-
+    <div id="sampleTable_filter" class="dataTables_filter">{% block search %}{% search_form cl %} {% endblock %}</div>
     <div class="object-tools object-tools-mr" style="margin-right:16%">
 
       {% block object-tools-items %}
@@ -55,7 +55,18 @@
 {% block coltype %}container{% endblock %}
 
 {% block content %}
-  <div id="content-main" class="row">
+{% block filters %}
+        {% if cl.has_filters %}
+<!--<div class="row" style="height:20px"></div>-->
+          <div id="changelist-filter-1" class="row tile" style="padding:10px 20px;margin:0 -32px 16px -32px">
+            <div class="tile-title" style="margin-bottom:2px"><h6>{% trans 'Filter' %}</h6></div>
+              <div class="tile-body row" style="width:100%;display:flex;">
+              {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+              </div>
+          </div>
+        {% endif %}
+      {% endblock %}
+  <div id="content-main" class="row" style="margin: 0px -32px;">
 
     {% if cl.formset.errors %}
         <p class="errornote">
@@ -63,10 +74,8 @@
         </p>
         {{ cl.formset.non_form_errors }}
     {% endif %}
-    <div id="sampleTable_filter" class="dataTables_filter">
-        {% block search %}{% search_form cl %}{% endblock %}
-    </div>
-    <div class="tile module{% if cl.has_filters %} filtered col-9{%else%} col{% endif %}" id="changelist">
+
+    <div class="tile module col" id="changelist">
 
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 
@@ -76,8 +85,10 @@
       {% endif %}
       <div class="tile-body">
         {% block result_list %}
-        <div class="col">
-            {% if action_form and actions_on_top and cl.show_admin_actions %}{% admin_actions %}{% endif %}
+        <div class="col" >
+            {% if action_form and actions_on_top and cl.show_admin_actions %}
+            {% admin_actions %}
+          {% endif %}
         </div>
             {% result_list cl %}
         <div class="col">
@@ -90,16 +101,7 @@
         {% block pagination %}{% pagination cl %}{% endblock %}
       </form>
     </div>
-    {% block filters %}
-        {% if cl.has_filters %}
-          <div id="changelist-filter-1" class="col tile ml-4">
-            <div class="tile-title"><h5>{% trans 'Filter' %}</h5></div>
-            <div class="tile-body">
-            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
-              </div>
-          </div>
-        {% endif %}
-      {% endblock %}
+
   </div>
 {% endblock %}
 {% block extrafoot %}

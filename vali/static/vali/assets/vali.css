@@ -32,6 +32,10 @@ transform: rotate(90deg);
 padding: 8px 14px;
 
 }
+
+#changelist .actions {
+    margin-top: -12px;
+}
 #changelist .actions label {
     vertical-align: top!important;
 }
