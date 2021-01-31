@@ -10,7 +10,7 @@
 {% endblock %}
 {% block extrahead %}
 {{ block.super }}
-<script type="text/javascript" src="{% static 'vali/js/bootstrap-closable-tab.js' %}?v=1"></script>
+<script type="text/javascript" src="{% static 'vali/assets/js/bootstrap-closable-tab.js' %}?v=1"></script>
 {% endblock %}
 {% block bodyevent%}onscroll="bodyscroll()" {% endblock %}
 {% block coltype %}{{ block.super }}{% endblock %}
@@ -155,7 +155,7 @@
 {% endblock %}
 {% block footer %}{% endblock %}
 {% block footscript %}
-<script src="{% static 'vali/js/index.js' %}?v=1"></script>
+<script src="{% static 'vali/assets/js/index.js' %}?v=1"></script>
 <script>
     addTab('dashboard', '{% trans "Home" %}', '/vali/dashboard/', false, true);
 </script>

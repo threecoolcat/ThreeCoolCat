@@ -8,7 +8,7 @@
     </div>
     {% vali_fieldset fieldset as fieldset %}
     {% for line in fieldset %}
-        <div class="form-group {% if line.fields|length_is:'1' and line.errors %} is_invalid{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
+        <div class="form-group {% if line.fields|length_is:'1' and line.errors %} is_invalid{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}" style="display:flex">
             {% if line.fields|length_is:'1' %}{% endif %}
             {% for field in line %}
                 <div{% if not line.fields|length_is:'1' %} class="row col field-box{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if not field.is_readonly and field.errors %} is_invalid{% endif %}{% if field.field.is_hidden %} hidden{% endif %}"{% elif field.is_checkbox %} class="row col checkbox-row"{% else %} class="row col"{% endif %}>

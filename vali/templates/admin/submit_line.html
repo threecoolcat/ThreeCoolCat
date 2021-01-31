@@ -1,5 +1,5 @@
 {% load i18n admin_urls %}
-<div class="tile submit-row">
+<div class="tile submit-row" style="margin-bottom: 0">
     {% if show_delete_link %}
     {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
     <a href="{% add_preserved_filters delete_url %}" class="btn btn-danger btn-sm pull-left"><i class="fa fa-times" style="margin-top:-3px"></i>{% trans "Delete" %}</a>
