@@ -201,8 +201,3 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/')
 
-# 微信公众号设置
-# 开发者ID
-WX_AppID = 'wx530c061fda55465c'
-# 开发者密码
-WX_AppSecret = 'b593a0521eb00cbdd871b14b960d831f'
