@@ -142,7 +142,6 @@ DATABASES = {
         'USER': 'root',
         # 密码
         'PASSWORD': 'cats123.',
-        # 'PASSWORD': 'www.isoftstone.CoM',
         # 服务器地址
         'HOST': '127.0.0.1',
         'TEST': {
